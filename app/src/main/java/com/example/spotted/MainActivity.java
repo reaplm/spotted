@@ -4,9 +4,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
 
+import com.example.spotted.adapters.ViewPagerAdapter;
+import com.example.spotted.ui.JobsFragment;
+import com.example.spotted.ui.alerts.AlertsFragment;
+import com.example.spotted.ui.home.HomeFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabLayout;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -15,10 +20,20 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.PagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+
+    private TabLayout mTabLayout;
+    private ViewPager mViewPager;
+
+    //TabLayout Fragments
+    private HomeFragment homeFragment;
+    private AlertsFragment alertsFragment;
+    private JobsFragment jobsFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +60,16 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        // Setup TabLayout
+        mTabLayout = (TabLayout)findViewById(R.id.tablayout);
+        mViewPager = (ViewPager)findViewById(R.id.viewpager);
+
+
+        mTabLayout.setupWithViewPager(mViewPager);
+
+        //Setup TabLayout
+        //setupTabIcons();
     }
 
     @Override
@@ -60,4 +85,19 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+    public void SetupViewPager(ViewPager viewPager)
+    {
+        ViewPagerAdapter adapter = new ViewPagerAdapter();
+
+        //Create fragments for each tab
+        homeFragment = new HomeFragment();
+        alertsFragment = new AlertsFragment();
+        jobsFragment = new JobsFragment();
+
+        adapter.addFragment(homeFragment, "Home");
+        adapter.addFragment(alertsFragment, "Alerts");
+        adapter.addFragment(jobsFragment, "Jobs");
+        viewPager.setAdapter(adapter);
+    }
+
 }
