@@ -10,6 +10,8 @@
     <color name="tabIndicatorColor">@color/colorAccent</color>
     <color name="tabSelectedTextColor">@color/colorAccent</color>
     <color name="tabTextColor">@color/white</color>
+    <color name="tabIconTint">@color/white</color>
+    <color name="colorOnSurface">@color/white</color>
 
 
     <!-- Navigation Drawer -->

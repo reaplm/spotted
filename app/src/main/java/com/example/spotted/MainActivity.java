@@ -94,10 +94,22 @@ public class MainActivity extends AppCompatActivity {
         alertsFragment = new AlertsFragment();
         jobsFragment = new JobsFragment();
 
+<<<<<<< Updated upstream
         adapter.addFragment(homeFragment, "Home");
         adapter.addFragment(alertsFragment, "Alerts");
         adapter.addFragment(jobsFragment, "Jobs");
         viewPager.setAdapter(adapter);
+=======
+        adapter.addFragment(homeFragment, "Home", R.drawable.ic_action_home);
+        adapter.addFragment(alertsFragment, "Alerts", R.drawable.ic_action_alert);
+        adapter.addFragment(jobsFragment, "Jobs", R.drawable.ic_action_work);
+        mViewPager.setAdapter(adapter);
+
+        new TabLayoutMediator(mTabLayout, mViewPager, (tab, position) ->{
+            tab.setIcon(adapter.getFragmentIcon(position));
+            tab.setText(adapter.getPageTitle(position));
+        }).attach();
+>>>>>>> Stashed changes
     }
 
 }
