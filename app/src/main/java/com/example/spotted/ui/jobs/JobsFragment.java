@@ -1,4 +1,4 @@
-package com.example.spotted.ui;
+package com.example.spotted.ui.jobs;
 
 import androidx.fragment.app.Fragment;
 

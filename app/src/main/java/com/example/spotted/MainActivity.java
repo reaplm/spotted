@@ -5,13 +5,14 @@ import android.view.View;
 import android.view.Menu;
 
 import com.example.spotted.adapters.ViewPagerAdapter;
-import com.example.spotted.ui.JobsFragment;
+import com.example.spotted.ui.jobs.JobsFragment;
 import com.example.spotted.ui.alerts.AlertsFragment;
 import com.example.spotted.ui.home.HomeFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -20,15 +21,14 @@ import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
 
     private TabLayout mTabLayout;
-    private ViewPager mViewPager;
+    private ViewPager2 mViewPager;
 
     //TabLayout Fragments
     private HomeFragment homeFragment;
@@ -63,13 +63,10 @@ public class MainActivity extends AppCompatActivity {
 
         // Setup TabLayout
         mTabLayout = (TabLayout)findViewById(R.id.tablayout);
-        mViewPager = (ViewPager)findViewById(R.id.viewpager);
+        mViewPager = (ViewPager2)findViewById(R.id.viewpager);
+        setupViewPager();
 
 
-        mTabLayout.setupWithViewPager(mViewPager);
-
-        //Setup TabLayout
-        //setupTabIcons();
     }
 
     @Override
@@ -85,31 +82,29 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
-    public void SetupViewPager(ViewPager viewPager)
+
+    /**
+     * Setup viewpager for TabLayout
+     */
+    public void setupViewPager()
     {
-        ViewPagerAdapter adapter = new ViewPagerAdapter();
+        ViewPagerAdapter adapter = new ViewPagerAdapter(this);
 
         //Create fragments for each tab
         homeFragment = new HomeFragment();
         alertsFragment = new AlertsFragment();
         jobsFragment = new JobsFragment();
 
-<<<<<<< Updated upstream
-        adapter.addFragment(homeFragment, "Home");
-        adapter.addFragment(alertsFragment, "Alerts");
-        adapter.addFragment(jobsFragment, "Jobs");
-        viewPager.setAdapter(adapter);
-=======
         adapter.addFragment(homeFragment, "Home", R.drawable.ic_action_home);
         adapter.addFragment(alertsFragment, "Alerts", R.drawable.ic_action_alert);
         adapter.addFragment(jobsFragment, "Jobs", R.drawable.ic_action_work);
+
         mViewPager.setAdapter(adapter);
 
         new TabLayoutMediator(mTabLayout, mViewPager, (tab, position) ->{
             tab.setIcon(adapter.getFragmentIcon(position));
             tab.setText(adapter.getPageTitle(position));
         }).attach();
->>>>>>> Stashed changes
     }
 
 }
