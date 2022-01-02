@@ -1,40 +1,42 @@
 package com.example.spotted.adapters;
 
+import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TableLayout;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.Lifecycle;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
+
+import com.example.spotted.R;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ViewPagerAdapter extends PagerAdapter {
+/**
+ * View pager adapter for Tablayout
+ */
+public class ViewPagerAdapter extends FragmentStateAdapter{
     private List<Fragment> fragments = new ArrayList<Fragment>();
     private List<String> fragmentTitles = new ArrayList<String>();
+    private List<Integer> fragmentIcons = new ArrayList<Integer>();
 
-    public ViewPagerAdapter(){
-        super();
-    }
-    public Fragment getItem(int position) {
-        return fragments.get(position);
+    public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
+        super(fragmentActivity);
     }
 
     public List<Fragment> getFragments() {
         return fragments;
-    }
-
-    @Override
-    public int getCount() {
-        return fragments.size();
-    }
-
-    @Override
-    public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
-        return false;
     }
 
     public CharSequence getPageTitle(int position)
@@ -42,11 +44,25 @@ public class ViewPagerAdapter extends PagerAdapter {
         return fragmentTitles.get(position);
         //return null;// display only the icon
     }
-
-    public void addFragment(Fragment fragment, String title)
+    public int getFragmentIcon(int position){
+        return fragmentIcons.get(position);
+    }
+    public void addFragment(Fragment fragment, String title, int icon)
     {
         fragments.add(fragment);
         fragmentTitles.add(title);
+        fragmentIcons.add(icon);
     }
 
+
+    @NonNull
+    @Override
+    public Fragment createFragment(int position) {
+        return fragments.get(position);
+    }
+
+    @Override
+    public int getItemCount() {
+        return fragments.size();
+    }
 }
