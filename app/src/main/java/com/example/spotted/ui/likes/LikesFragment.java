@@ -1,4 +1,4 @@
-package com.example.spotted.ui.slideshow;
+package com.example.spotted.ui.likes;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,17 +14,16 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.spotted.R;
 
-public class SlideshowFragment extends Fragment {
+public class LikesFragment extends Fragment {
 
-    private SlideshowViewModel slideshowViewModel;
+    private LikesViewModel likesViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        slideshowViewModel =
-                new ViewModelProvider(this).get(SlideshowViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_slideshow, container, false);
-        final TextView textView = root.findViewById(R.id.text_slideshow);
-        slideshowViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+        likesViewModel =  new ViewModelProvider(this).get(LikesViewModel.class);
+        View root = inflater.inflate(R.layout.fragment_likes, container, false);
+        final TextView textView = root.findViewById(R.id.text_gallery);
+        likesViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
