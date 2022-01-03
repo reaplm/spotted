@@ -38,8 +38,8 @@ dependencies {
    // implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.0'
     //implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0'
     implementation group: 'androidx.viewpager2', name: 'viewpager2', version: '1.0.0'
-    implementation 'androidx.lifecycle:lifecycle-livedata:2.4.0'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.4.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata:2.3.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.3.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
 
     testImplementation 'junit:junit:4.+'
