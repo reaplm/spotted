@@ -1,6 +1,12 @@
 plugins {
     id 'com.android.application'
+
+
+
 }
+// Add the following line:
+apply plugin: 'com.google.gms.google-services'  // Google Services plugin
+
 
 android {
     compileSdkVersion 32
@@ -41,6 +47,12 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-livedata:2.3.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel:2.3.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+
+    // Import the Firebase BoM
+    implementation platform('com.google.firebase:firebase-bom:29.0.3')
+
+    // When using the BoM, you don't specify versions in Firebase library dependencies
+    implementation 'com.google.firebase:firebase-firestore'
 
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
