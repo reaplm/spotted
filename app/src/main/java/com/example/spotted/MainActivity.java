@@ -41,8 +41,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fabAlert = findViewById(R.id.fab_add_alert);
+        fabAlert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_settings,
+                R.id.nav_home, R.id.nav_likes, R.id.nav_settings,
                 R.id.nav_about)
                 .setDrawerLayout(drawer)
                 .build();
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         jobsFragment = new JobsFragment();
 
         adapter.addFragment(homeFragment, "Home", R.drawable.ic_action_home);
-        adapter.addFragment(alertsFragment, "Alerts", R.drawable.ic_action_alert);
+        adapter.addFragment(alertsFragment, "Alerts", R.drawable.ic_action_notification);
         adapter.addFragment(jobsFragment, "Jobs", R.drawable.ic_action_work);
 
         mViewPager.setAdapter(adapter);
