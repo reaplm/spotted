@@ -1,5 +1,6 @@
 package com.example.spotted.models;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -120,5 +121,17 @@ public class Job {
 
     public void setQualifications(List<String> qualifications) {
         Qualifications = qualifications;
+    }
+    public String getClosingString(){
+        String pattern = "dd/MM/yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+        return simpleDateFormat.format(getClosing());
+    }
+    public String getPostedString(){
+        String pattern = "EEE, d MMM yyyy";
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+        return simpleDateFormat.format(getPosted());
     }
 }

@@ -22,12 +22,11 @@ import static android.content.ContentValues.TAG;
 
 public class JobDao implements IJobDao{
 
-    FirebaseFirestore db;
-    private IJobDao jobDao;
+    private FirebaseFirestore db;
 
     public JobDao(){
         db = FirebaseService.getFirestore();
-        jobDao = new JobDao();
+
     }
 
 
