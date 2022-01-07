@@ -1,6 +1,8 @@
 package com.example.spotted.adapters;
 
 import android.content.Context;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.spotted.R;
 import com.example.spotted.models.Job;
+import com.example.spotted.utils.RandomColorGenerator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +25,12 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobsAdapterVie
 
     private List<Job> jobs;
     private Context mContext;
+    private RandomColorGenerator randomColorGenerator;
 
     public JobsAdapter(Context context){
         mContext = context;
         jobs = new ArrayList<>();
+        randomColorGenerator = new RandomColorGenerator();
     }
 
     @NonNull
@@ -44,7 +49,12 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobsAdapterVie
         holder.location.setText(jobs.get(position).getLocation());
         holder.postedDate.setText(jobs.get(position).getPostedString());
         holder.closingDate.setText("Closes "+jobs.get(position).getClosingString());
+
+        ShapeDrawable circle = new ShapeDrawable(new OvalShape());
+        circle.setTint(randomColorGenerator.getColor());
+        holder.roundButton.setBackground(circle);
         holder.roundButton.setText(jobs.get(position).getTitle().substring(0, 1).toUpperCase());
+
         holder.likeCheckbox.setChecked(jobs.get(position).isLiked());
         holder.likeCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
