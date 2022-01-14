@@ -10,7 +10,7 @@ public class LikesViewModel extends ViewModel {
 
     public LikesViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is gallery fragment");
+        mText.setValue("This is favourites fragment");
     }
 
     public LiveData<String> getText() {

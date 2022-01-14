@@ -31,9 +31,10 @@ public class ViewPagerAdapter extends FragmentStateAdapter{
     private List<String> fragmentTitles = new ArrayList<String>();
     private List<Integer> fragmentIcons = new ArrayList<Integer>();
 
-    public ViewPagerAdapter(@NonNull FragmentActivity fragmentActivity) {
-        super(fragmentActivity);
+    public ViewPagerAdapter(@NonNull FragmentManager fragmentManager, @NonNull Lifecycle lifecycle) {
+        super(fragmentManager, lifecycle);
     }
+
 
     public List<Fragment> getFragments() {
         return fragments;

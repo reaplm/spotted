@@ -27,14 +27,6 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
 
-    private TabLayout mTabLayout;
-    private ViewPager2 mViewPager;
-
-    //TabLayout Fragments
-    private HomeFragment homeFragment;
-    private AlertsFragment alertsFragment;
-    private JobsFragment jobsFragment;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,10 +54,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        // Setup TabLayout
-        mTabLayout = (TabLayout)findViewById(R.id.tablayout);
-        mViewPager = (ViewPager2)findViewById(R.id.viewpager);
-        setupViewPager();
+
 
 
     }
@@ -82,30 +71,6 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
-    }
-
-    /**
-     * Setup viewpager for TabLayout
-     */
-    public void setupViewPager()
-    {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(this);
-
-        //Create fragments for each tab
-        homeFragment = new HomeFragment();
-        alertsFragment = new AlertsFragment();
-        jobsFragment = new JobsFragment();
-
-        adapter.addFragment(homeFragment, "Home", R.drawable.ic_action_home);
-        adapter.addFragment(alertsFragment, "Alerts", R.drawable.ic_action_notification);
-        adapter.addFragment(jobsFragment, "Jobs", R.drawable.ic_action_work);
-
-        mViewPager.setAdapter(adapter);
-
-        new TabLayoutMediator(mTabLayout, mViewPager, (tab, position) ->{
-            tab.setIcon(adapter.getFragmentIcon(position));
-            tab.setText(adapter.getPageTitle(position));
-        }).attach();
     }
 
 }
