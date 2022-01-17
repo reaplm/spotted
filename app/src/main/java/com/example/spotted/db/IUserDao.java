@@ -7,4 +7,6 @@ import com.google.firebase.auth.AuthResult;
 public interface IUserDao {
     void signInWithEmailAndPassword(String email, String password,
                                     OnCompleteListener<AuthResult> onCompleteListener);
+    void createUserWithEmailAndPassword(String email, String password,
+                                    OnCompleteListener<AuthResult> onCompleteListener);
 }

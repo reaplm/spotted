@@ -17,4 +17,16 @@ public class UserDao implements IUserDao{
             resultTask.addOnCompleteListener(onCompleteListener);
 
     }
+
+    @Override
+    public void createUserWithEmailAndPassword(String email, String password,
+                                               OnCompleteListener<AuthResult> onCompleteListener) {
+        // Attempt registration [ If successful the user is automatically logged in ]
+        Task<AuthResult> resultTask = FirebaseService.getFirebaseAuth()
+                .createUserWithEmailAndPassword(email, password);
+
+        if(onCompleteListener != null)
+            resultTask.addOnCompleteListener(onCompleteListener);
+
+    }
 }
