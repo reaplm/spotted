@@ -6,9 +6,6 @@
     android:id="@+id/linearLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
     android:orientation="vertical"
     tools:context=".ui.home.HomeFragment">
     <com.google.android.material.tabs.TabLayout
@@ -23,16 +20,10 @@
         app:tabTextColor="@color/tabTextColor"
         app:tabSelectedTextColor="@color/tabSelectedTextColor"
         app:tabIconTint="@drawable/tab_icon_color"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/linearlayout"
         />
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewpager"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tablayout"/>
+        android:layout_weight="1"/>
 </LinearLayout>

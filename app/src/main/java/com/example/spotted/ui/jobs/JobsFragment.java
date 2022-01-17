@@ -1,6 +1,7 @@
 package com.example.spotted.ui.jobs;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,13 +52,16 @@ public class JobsFragment  extends Fragment {
 
         emptyRvText = view.findViewById(R.id.empty_rv_text);
         //Load data
-        getJobsList();
+       getJobsList();
         
         return view;
     }
 
     private void getJobsList() {
+
+
         swipeRefreshLayout.setRefreshing(true);
+
 
         jobsViewModel.getJobs().observe(getViewLifecycleOwner(), new Observer<List<Job>>() {
             @Override

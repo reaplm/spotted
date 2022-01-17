@@ -50,7 +50,7 @@ public class HomeFragment extends Fragment {
      */
     public void setupViewPager()
     {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager(), getLifecycle());
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getActivity());
 
         //Create fragments for each tab
         alertsFragment = new AlertsFragment();
@@ -66,6 +66,7 @@ public class HomeFragment extends Fragment {
             tab.setIcon(adapter.getFragmentIcon(position));
             tab.setText(adapter.getPageTitle(position));
         }).attach();
+
     }
 
 }
