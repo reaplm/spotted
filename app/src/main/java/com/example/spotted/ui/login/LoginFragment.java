@@ -55,7 +55,9 @@ public class LoginFragment extends Fragment {
         registerLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //navigate to registration
+                Navigation.findNavController(root)
+                        .navigate(R.id.action_nav_login_to_nav_register);
             }
         });
 
