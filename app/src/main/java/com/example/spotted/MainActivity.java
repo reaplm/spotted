@@ -1,10 +1,19 @@
 package com.example.spotted;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.spotted.adapters.ViewPagerAdapter;
+import com.example.spotted.services.FirebaseService;
+import com.example.spotted.services.LocalBroadcastManager;
 import com.example.spotted.ui.jobs.JobsFragment;
 import com.example.spotted.ui.alerts.AlertsFragment;
 import com.example.spotted.ui.home.HomeFragment;
@@ -13,6 +22,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.firebase.auth.FirebaseUser;
 
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -54,7 +64,10 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-
+        //Listen for broadcasts
+        IntentFilter filter = new IntentFilter("ACTION_LOGIN");
+        filter.addAction("ACTION_LOGIN");
+        registerReceiver(broadcastReceiver, filter);
 
 
     }
@@ -72,5 +85,81 @@ public class MainActivity extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+    /**
+     * Listen for broadcasts from edit profile activity
+     */
+    BroadcastReceiver broadcastReceiver = new LocalBroadcastManager(){
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            updateUi(intent);
+        }
+    };
+    /**
+     * Update UI from async tasks
+     * @param intent
+     */
+    public void updateUi(Intent intent){
+        MainActivity.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                String action = intent.getAction();
+                Boolean success = intent.getBooleanExtra("success",false);
+                switch(action){
+                    case "ACTION_LOGIN":
+                        if(success){
+                            Toast.makeText(getApplicationContext(), "Login successful!",
+                                    Toast.LENGTH_LONG).show();
+                            updateHeader();
+                            updateLoginMenu();
+                        }
+                        else{
+                            if(intent.getStringExtra("error") != null){
+                                Toast.makeText(getApplicationContext(), intent.getStringExtra("error"),
+                                        Toast.LENGTH_LONG).show();
+                            }
+                            else{
+                                Toast.makeText(getApplicationContext(), "Login failed",
+                                        Toast.LENGTH_LONG).show();
+                            }
 
+                        }
+                }
+
+            }
+        });
+    }
+
+    private void updateLoginMenu() {
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        Menu menu = navigationView.getMenu();
+        MenuItem nav_login = menu.findItem(R.id.nav_login);
+
+        if(FirebaseService.getFirebaseAuth().getCurrentUser() != null){
+            nav_login.setTitle(R.string.menu_logout);
+        }
+        else{
+            nav_login.setTitle(R.string.menu_login);
+        }
+
+    }
+
+    private void updateHeader(){
+        //Header
+        FirebaseUser user = FirebaseService.getFirebaseAuth().getCurrentUser();
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+
+        TextView header_title= headerView.findViewById(R.id.nav_header_title);
+
+        if (user != null) {
+            if(user.getDisplayName() != null)
+                header_title.setText(user.getDisplayName().split(" ")[0]);
+            else
+                header_title.setText(user.getEmail());
+        } else {
+            header_title.setText("");
+        }
+
+
+    }
 }

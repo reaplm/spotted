@@ -17,4 +17,5 @@
     <string name="menu_login">Log In</string>
     <string name="register_link"><u>Create Account</u></string>
     <string name="menu_register">Register</string>
+    <string name="menu_logout">Log Out</string>
 </resources>

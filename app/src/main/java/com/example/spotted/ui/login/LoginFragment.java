@@ -4,6 +4,7 @@ package com.example.spotted.ui.login;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -73,21 +74,26 @@ public class LoginFragment extends Fragment {
         loginViewModel.getAuthResult().observe(getViewLifecycleOwner(), new Observer<Task<AuthResult>>() {
             @Override
             public void onChanged(Task<AuthResult> authResultTask) {
-                if(authResultTask.isComplete()){
-                    if(authResultTask.isSuccessful()){ //registration was successful
-                        Toast.makeText(getContext(), "authResultTask.getException().getMessage()",
-                                Toast.LENGTH_LONG).show();
-                        //go home
-                        Navigation.findNavController(root)
-                                .navigate(R.id.action_nav_login_to_nav_home);
-                    }
-                    else {
+                Intent intent = new Intent("ACTION_LOGIN");
 
-                        showErrorDialog(authResultTask.getException().getMessage());
-                        //System.out.println(authResultTask.getException().getMessage());
+                if(authResultTask.isComplete()){
+                    intent.putExtra("success", authResultTask.isSuccessful());
+                    if(!authResultTask.isSuccessful()){ //login failed
+                        if(authResultTask.getException() != null){
+                            intent.putExtra("error", authResultTask.getException().getMessage());
+                        }
+                        else{
+                            intent.putExtra("error", "Login Failed");
+                        }
+
                     }
                 }
-                else{ System.out.println("Task not complete");}
+                else{ intent.putExtra("error", "Failed to complete task");}
+
+                //send broacast and go home
+                getActivity().sendBroadcast(intent);
+                Navigation.findNavController(root)
+                        .navigate(R.id.action_nav_login_to_nav_home);
             }
         });
         return root;
