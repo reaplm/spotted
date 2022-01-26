@@ -28,4 +28,14 @@ public class FirebaseService {
 
         return auth;
     }
+    public static boolean isLoggedIn(){
+        if(getFirebaseAuth().getCurrentUser() != null)
+            return true;
+        else
+            return false;
+    }
+
+    public static void signOut(){
+        getFirebaseAuth().signOut();
+    }
 }

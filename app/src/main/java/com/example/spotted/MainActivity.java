@@ -24,8 +24,12 @@ import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.firebase.auth.FirebaseUser;
 
+import androidx.annotation.IdRes;
+import androidx.annotation.NonNull;
+import androidx.core.view.GravityCompat;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -58,19 +62,45 @@ public class MainActivity extends AppCompatActivity {
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_likes, R.id.nav_settings,
                 R.id.nav_about, R.id.nav_login)
-                .setDrawerLayout(drawer)
+                .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int menuId = item.getItemId();
+                View parentLayout = findViewById(android.R.id.content);
+                switch (menuId) {
+                   case R.id.nav_logout:
+                        signOut();
+                       Snackbar
+                           .make(parentLayout, "You have successfully logged in!",
+                                   Snackbar.LENGTH_LONG).show();
+                        break;
+                    case R.id.nav_login:
 
+                        navController.navigate(R.id.nav_login);
+                        break;
+                }
+
+                drawer.closeDrawer(GravityCompat.START);
+                return false;
+            }
+        });
         //Listen for broadcasts
         IntentFilter filter = new IntentFilter("ACTION_LOGIN");
         filter.addAction("ACTION_LOGIN");
         registerReceiver(broadcastReceiver, filter);
 
+        //Update UI
+        updateLoginMenu();
+        updateHeader();
 
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -104,11 +134,11 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 String action = intent.getAction();
                 Boolean success = intent.getBooleanExtra("success",false);
+
                 switch(action){
                     case "ACTION_LOGIN":
                         if(success){
-                            Toast.makeText(getApplicationContext(), "Login successful!",
-                                    Toast.LENGTH_LONG).show();
+
                             updateHeader();
                             updateLoginMenu();
                         }
@@ -128,17 +158,24 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    private void signOut() {
+        FirebaseService.signOut();
 
+        //update drawer menu
+        updateLoginMenu();
+        updateHeader();
+
+    }
     private void updateLoginMenu() {
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        Menu menu = navigationView.getMenu();
-        MenuItem nav_login = menu.findItem(R.id.nav_login);
 
-        if(FirebaseService.getFirebaseAuth().getCurrentUser() != null){
-            nav_login.setTitle(R.string.menu_logout);
+        if(FirebaseService.isLoggedIn()){
+            navigationView.getMenu().clear();
+            navigationView.inflateMenu(R.menu.activity_main_drawer_logout);
         }
         else{
-            nav_login.setTitle(R.string.menu_login);
+            navigationView.getMenu().clear();
+            navigationView.inflateMenu(R.menu.activity_main_drawer);
         }
 
     }
