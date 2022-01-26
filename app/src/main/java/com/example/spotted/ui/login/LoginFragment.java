@@ -27,6 +27,7 @@ import androidx.navigation.Navigation;
 
 import com.example.spotted.R;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.firebase.auth.AuthResult;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
@@ -39,6 +40,7 @@ public class LoginFragment extends Fragment {
     private TextView registerLink;
     private Button loginButton;
     private CheckBox rememberMeCheck;
+    private LinearProgressIndicator indicator;
 
     @Nullable
     @Override
@@ -52,6 +54,7 @@ public class LoginFragment extends Fragment {
         registerLink = root.findViewById(R.id.register_link);
         loginButton = root.findViewById(R.id.login_button);
         rememberMeCheck = root.findViewById(R.id.login_rememberme);
+        indicator = root.findViewById(R.id.linear_progress_indicator);
 
         registerLink.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +69,7 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 hideKeyboard(getActivity());
+                indicator.setVisibility(View.VISIBLE);
                 loginViewModel.submitLogin(email.getText().toString(),
                         password.getText().toString());
             }
@@ -74,6 +78,7 @@ public class LoginFragment extends Fragment {
         loginViewModel.getAuthResult().observe(getViewLifecycleOwner(), new Observer<Task<AuthResult>>() {
             @Override
             public void onChanged(Task<AuthResult> authResultTask) {
+                indicator.setVisibility(View.GONE);
                 Intent intent = new Intent("ACTION_LOGIN");
 
                 if(authResultTask.isComplete()){

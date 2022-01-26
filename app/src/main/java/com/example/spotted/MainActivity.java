@@ -1,7 +1,9 @@
 package com.example.spotted;
 
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
@@ -138,18 +140,15 @@ public class MainActivity extends AppCompatActivity {
                 switch(action){
                     case "ACTION_LOGIN":
                         if(success){
-
                             updateHeader();
                             updateLoginMenu();
                         }
                         else{
                             if(intent.getStringExtra("error") != null){
-                                Toast.makeText(getApplicationContext(), intent.getStringExtra("error"),
-                                        Toast.LENGTH_LONG).show();
+                                showDialog("Login Failed", intent.getStringExtra("error") );
                             }
                             else{
-                                Toast.makeText(getApplicationContext(), "Login failed",
-                                        Toast.LENGTH_LONG).show();
+                                showDialog("Login Failed", "Sorry, an error occured.");
                             }
 
                         }
@@ -196,7 +195,21 @@ public class MainActivity extends AppCompatActivity {
         } else {
             header_title.setText("");
         }
+    }
+    private void showDialog(String title, String message){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(message);
+        builder.setTitle(title);
 
+        builder.setNeutralButton(
+                "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
 
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 }
