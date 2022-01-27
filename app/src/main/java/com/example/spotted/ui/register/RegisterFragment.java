@@ -24,6 +24,7 @@ import androidx.navigation.Navigation;
 import com.example.spotted.R;
 import com.example.spotted.services.FirebaseService;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.firebase.auth.AuthResult;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
@@ -38,6 +39,7 @@ public class RegisterFragment extends Fragment {
     private EditText password;
     private Button registerButton;
     private CheckBox rememberMeCheck;
+    private LinearProgressIndicator progressIndicator;
 
 
     @Nullable
@@ -54,10 +56,13 @@ public class RegisterFragment extends Fragment {
         password = root.findViewById(R.id.register_password);
         registerButton = root.findViewById(R.id.register_button);
         rememberMeCheck = root.findViewById(R.id.register_rememberme);
+        progressIndicator = root.findViewById(R.id.linear_progress_indicator);
+        progressIndicator.setVisibility(View.INVISIBLE);
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressIndicator.setVisibility(View.VISIBLE);
                 registerViewModel.submitRegistration(email.getText().toString(),
                         password.getText().toString());
             }
@@ -66,6 +71,7 @@ public class RegisterFragment extends Fragment {
         registerViewModel.getAuthResult().observe(getViewLifecycleOwner(), new Observer<Task<AuthResult>>() {
             @Override
             public void onChanged(Task<AuthResult> authResultTask) {
+                progressIndicator.setVisibility(View.INVISIBLE);
                 if(authResultTask.isComplete()){
                     if(authResultTask.isSuccessful()){ //registration was successful
                         if(FirebaseService.getFirebaseAuth().getCurrentUser() != null){
