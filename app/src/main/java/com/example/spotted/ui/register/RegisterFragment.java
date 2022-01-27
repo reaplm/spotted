@@ -3,6 +3,7 @@ package com.example.spotted.ui.register;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,6 +66,8 @@ public class RegisterFragment extends Fragment {
                 progressIndicator.setVisibility(View.VISIBLE);
                 registerViewModel.submitRegistration(email.getText().toString(),
                         password.getText().toString());
+                //Hide Keyboard
+                hideKeyboard(getActivity());
             }
         });
 
@@ -72,13 +75,13 @@ public class RegisterFragment extends Fragment {
             @Override
             public void onChanged(Task<AuthResult> authResultTask) {
                 progressIndicator.setVisibility(View.INVISIBLE);
+                Intent intent = new Intent("ACTION_REGISTRATION");
                 if(authResultTask.isComplete()){
+                    intent.putExtra("success", authResultTask.isSuccessful());
                     if(authResultTask.isSuccessful()){ //registration was successful
-                        if(FirebaseService.getFirebaseAuth().getCurrentUser() != null){
-                            showDialog("Registration Successful","You have successfully logged in!");
-                        }
-                        //Hide Keyboard
-                        hideKeyboard(getActivity());
+
+                        //send broacast and go home
+                        getActivity().sendBroadcast(intent);
                         Navigation.findNavController(root).navigate(R.id.nav_home);
                     }
                     else {
@@ -96,7 +99,7 @@ public class RegisterFragment extends Fragment {
     private void showDialog(String title, String message){
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(message);
-
+        builder.setTitle(title);
         builder.setNeutralButton(
                 "OK",
                 new DialogInterface.OnClickListener() {

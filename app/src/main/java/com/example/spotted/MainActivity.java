@@ -77,9 +77,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (menuId) {
                    case R.id.nav_logout:
                         signOut();
-                       Snackbar
-                           .make(parentLayout, "You have successfully logged in!",
-                                   Snackbar.LENGTH_LONG).show();
+
                         break;
                     case R.id.nav_login:
 
@@ -92,8 +90,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         //Listen for broadcasts
-        IntentFilter filter = new IntentFilter("ACTION_LOGIN");
+        IntentFilter filter = new IntentFilter();
         filter.addAction("ACTION_LOGIN");
+        filter.addAction("ACTION_REGISTRATION");
         registerReceiver(broadcastReceiver, filter);
 
         //Update UI
@@ -134,26 +133,28 @@ public class MainActivity extends AppCompatActivity {
         MainActivity.this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                View parentLayout = findViewById(android.R.id.content);
                 String action = intent.getAction();
                 Boolean success = intent.getBooleanExtra("success",false);
 
-                switch(action){
-                    case "ACTION_LOGIN":
-                        if(success){
-                            updateHeader();
-                            updateLoginMenu();
+                if(action.equals("ACTION_LOGIN") || action.equals("ACTION_REGISTRATION")){
+                    if(success){
+                        updateHeader();
+                        updateLoginMenu();
+                        Snackbar
+                                .make(parentLayout, "You have successfully logged in!",
+                                        Snackbar.LENGTH_LONG).show();
+                    }
+                    else{
+                        if(intent.getStringExtra("error") != null){
+                            showDialog(action.split("_")[1], intent.getStringExtra("error") );
                         }
                         else{
-                            if(intent.getStringExtra("error") != null){
-                                showDialog("Login Failed", intent.getStringExtra("error") );
-                            }
-                            else{
-                                showDialog("Login Failed", "Sorry, an error occured.");
-                            }
-
+                            showDialog(action.split("_")[1], "Sorry, an error occured.");
                         }
-                }
 
+                    }
+                }
             }
         });
     }
