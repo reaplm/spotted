@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (menuId) {
                    case R.id.nav_logout:
                         signOut();
-
+                       showSnackBar("You have been logged out.");
                         break;
                     case R.id.nav_login:
 
@@ -133,7 +133,6 @@ public class MainActivity extends AppCompatActivity {
         MainActivity.this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                View parentLayout = findViewById(android.R.id.content);
                 String action = intent.getAction();
                 Boolean success = intent.getBooleanExtra("success",false);
 
@@ -141,9 +140,7 @@ public class MainActivity extends AppCompatActivity {
                     if(success){
                         updateHeader();
                         updateLoginMenu();
-                        Snackbar
-                                .make(parentLayout, "You have successfully logged in!",
-                                        Snackbar.LENGTH_LONG).show();
+                        showSnackBar("You have successfully logged in!");
                     }
                     else{
                         if(intent.getStringExtra("error") != null){
@@ -212,5 +209,11 @@ public class MainActivity extends AppCompatActivity {
 
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+    }
+    private void showSnackBar(String message){
+        View parentLayout = findViewById(android.R.id.content);
+        Snackbar
+                .make(parentLayout, message,
+                        Snackbar.LENGTH_LONG).show();
     }
 }
