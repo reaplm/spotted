@@ -75,12 +75,23 @@ public class MainActivity extends AppCompatActivity {
                 int menuId = item.getItemId();
                 View parentLayout = findViewById(android.R.id.content);
                 switch (menuId) {
+                    case R.id.nav_home:
+                        navController.navigate(R.id.nav_home);
+                        break;
+                    case R.id.nav_likes:
+                        navController.navigate(R.id.nav_likes);
+                        break;
+                    case R.id.nav_about:
+                        navController.navigate(R.id.nav_about);
+                        break;
+                    case R.id.nav_settings:
+                        navController.navigate(R.id.nav_settings);
+                        break;
                    case R.id.nav_logout:
                         signOut();
                        showSnackBar("You have been logged out.");
                         break;
                     case R.id.nav_login:
-
                         navController.navigate(R.id.nav_login);
                         break;
                 }
@@ -89,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
         //Listen for broadcasts
         IntentFilter filter = new IntentFilter();
         filter.addAction("ACTION_LOGIN");
@@ -100,8 +112,6 @@ public class MainActivity extends AppCompatActivity {
         updateHeader();
 
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
