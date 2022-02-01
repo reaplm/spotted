@@ -1,6 +1,8 @@
 package com.example.spotted.adapters;
 
+
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.view.LayoutInflater;
@@ -9,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,31 +23,41 @@ import com.example.spotted.models.Job;
 import com.example.spotted.utils.PreferenceManager;
 import com.example.spotted.utils.RandomColorGenerator;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobsAdapterViewHolder> {
-
+public class FavouritesAdapter extends RecyclerView.Adapter<FavouritesAdapter.FavouritesAdapterViewHolder> {
     private List<Job> jobs;
-    private Context mContext;
+    private Context context;
+    private RecyclerView mRecyclerView;
     private RandomColorGenerator randomColorGenerator;
 
-    public JobsAdapter(Context context){
-        mContext = context;
-        jobs = new ArrayList<>();
+    public FavouritesAdapter(Context context)
+    {
+        this.context = context;
         randomColorGenerator = new RandomColorGenerator();
+        jobs = new ArrayList<>();
+    }
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+        mRecyclerView = recyclerView;
     }
 
     @NonNull
     @Override
-    public JobsAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(mContext).inflate(R.layout.job_item, parent, false);
+    public FavouritesAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        //Setup your layout here
+        int id = R.layout.job_item;
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(id, parent, false);
 
-        return new JobsAdapterViewHolder(itemView);
+        return new FavouritesAdapter.FavouritesAdapterViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull JobsAdapterViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FavouritesAdapterViewHolder holder, int position) {
+        Job job = jobs.get(position);
 
         holder.title.setText(jobs.get(position).getTitle());
         holder.company.setText(jobs.get(position).getCompany());
@@ -56,41 +70,44 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobsAdapterVie
         holder.roundButton.setBackground(circle);
         holder.roundButton.setText(jobs.get(position).getTitle().substring(0, 1).toUpperCase());
 
-        holder.likeCheckbox.setChecked(jobs.get(position).isLiked());
+        holder.likeCheckbox.setChecked(job.isLiked());
         holder.likeCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
-                    jobs.get(position).setLiked(true);
-                    PreferenceManager.getInstance(mContext).addLike(jobs.get(position));
+                    job.setLiked(true);
+                    PreferenceManager.getInstance(context).addLike(job);
                 }
                 else{
-                    jobs.get(position).setLiked(false);
-                    PreferenceManager.getInstance(mContext).removeLike(jobs.get(position));
+                    job.setLiked(false);
+                    jobs.remove(job);
+                    notifyItemRemoved(position);
+                    notifyItemRangeChanged(position, jobs.size());
+                    PreferenceManager.getInstance(context).removeLike(job);
                 }
             }
         });
     }
-
 
     @Override
     public int getItemCount() {
         return jobs.size();
     }
 
-    public void setData(List<Job> data){
-        if(jobs.isEmpty()){
-            jobs = data;
-        }
-        else{
+    public void setData(List<Job> data) {
+        if (jobs != null) {
             jobs.clear();
             jobs.addAll(data);
+            notifyDataSetChanged();
+
+        } else {
+            //First initialization
+            jobs = data;
         }
-        notifyDataSetChanged();
     }
 
-    public class JobsAdapterViewHolder extends RecyclerView.ViewHolder{
 
+    public class FavouritesAdapterViewHolder extends RecyclerView.ViewHolder {
         private TextView title;
         private TextView company;
         private TextView location;
@@ -99,8 +116,7 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobsAdapterVie
         private Button roundButton;
         private CheckBox likeCheckbox;
 
-
-        public JobsAdapterViewHolder(@NonNull View itemView) {
+        public FavouritesAdapterViewHolder(View itemView) {
             super(itemView);
 
             title = itemView.findViewById(R.id.job_item_title);
@@ -110,6 +126,8 @@ public class JobsAdapter extends RecyclerView.Adapter<JobsAdapter.JobsAdapterVie
             closingDate = itemView.findViewById(R.id.job_item_closing_date);
             roundButton = itemView.findViewById(R.id.job_item_round_btn);
             likeCheckbox = itemView.findViewById(R.id.job_item_like_btn);
+
+
         }
     }
 }
