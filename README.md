@@ -1,3 +1,3 @@
 # spotted
 
-![Android Jobs App](mhy00ngyS5_gif.gif)
+![Android Jobs App](cLQj1pd0JV.gif)  |  ![Android Jobs App](fqLwZC5Qrg.gif)
