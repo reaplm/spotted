@@ -122,4 +122,10 @@ public class RegisterFragment extends Fragment {
                     InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        hideKeyboard(getActivity());
+    }
 }
