@@ -21,6 +21,7 @@ import com.example.spotted.adapters.JobsAdapter;
 import com.example.spotted.models.Job;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class JobsFragment  extends Fragment {
     private JobsViewModel jobsViewModel;
@@ -33,7 +34,8 @@ public class JobsFragment  extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        jobsViewModel = new ViewModelProvider(this).get(JobsViewModel.class);
+        jobsViewModel = new ViewModelProvider(this,
+                new JobsViewModelFactory(getActivity())).get(JobsViewModel.class);
 
         View view = inflater.inflate(R.layout.fragment_jobs, container, false);
 
@@ -73,6 +75,18 @@ public class JobsFragment  extends Fragment {
                     emptyRvText.setVisibility(View.VISIBLE);
                 }
                 else{
+                    //set liked items
+                    List<String> ids = jobsViewModel.getLikes()
+                        .stream()
+                        .map(v -> v.getId())
+                        .collect(Collectors.toList());
+
+                    jobs.stream()
+                        .filter(o -> ids.contains(o.getId()))
+                        .forEach(vendor -> {
+                                    vendor.setLiked(true);
+                            });
+
                     //Load the data into recyclerview
                     jobsAdapter.setData(jobs);
                     rvJobs.setVisibility(View.VISIBLE);
