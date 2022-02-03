@@ -19,6 +19,8 @@ import com.example.spotted.services.LocalBroadcastManager;
 import com.example.spotted.ui.jobs.JobsFragment;
 import com.example.spotted.ui.alerts.AlertsFragment;
 import com.example.spotted.ui.home.HomeFragment;
+import com.example.spotted.ui.profile.ProfileActivity;
+import com.example.spotted.utils.PreferenceManager;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -100,6 +102,23 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+        //Onclick for nav_header
+        View headerView = navigationView.getHeaderView(0);
+        headerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(FirebaseService.isLoggedIn()){
+                    //Start profile activity
+                    Intent intent = new Intent(v.getContext(), ProfileActivity.class);
+                    startActivity(intent);
+                }
+                else{
+                    //go to login
+                    navController.navigate(R.id.nav_login);
+                }
+                drawer.closeDrawer(GravityCompat.START);
+            }
+        });
 
         //Listen for broadcasts
         IntentFilter filter = new IntentFilter();
@@ -112,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
         updateHeader();
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
