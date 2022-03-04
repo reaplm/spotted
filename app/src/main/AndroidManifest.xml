@@ -20,6 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.profile.ProfileActivity" android:label="Profile"></activity>
+        <activity android:name=".ui.edit.EditActivity" android:label="Edit Profile"></activity>
     </application>
 
 </manifest>

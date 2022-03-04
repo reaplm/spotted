@@ -18,4 +18,8 @@
     <string name="register_link"><u>Create Account</u></string>
     <string name="menu_register">Register</string>
     <string name="menu_logout">Log Out</string>
+
+    <string name="username_hint">Display Name</string>
+    <string name="user_phone_hint">phone number</string>
+    <string name="user_location_hint">location</string>
 </resources>
