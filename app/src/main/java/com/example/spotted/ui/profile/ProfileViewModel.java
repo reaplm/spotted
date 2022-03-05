@@ -15,7 +15,7 @@ public class ProfileViewModel extends ViewModel {
     public ProfileViewModel(){
         if(FirebaseService.isLoggedIn()){
             user = FirebaseService.getFirebaseAuth().getCurrentUser();
-            phone = user.getPhoneNumber().isEmpty() ? "78514962" : user.getPhoneNumber() ;
+            phone = user.getPhoneNumber() == null ? "78514962" : user.getPhoneNumber() ;
             email = user.getEmail();
 
             if(user.getDisplayName() != null)

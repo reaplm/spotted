@@ -34,6 +34,7 @@ import androidx.navigation.Navigator;
 import com.example.spotted.R;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 
 
 import java.io.File;
@@ -48,6 +49,7 @@ public class EditActivity extends AppCompatActivity {
     private EditText phone;
     private TextView email;
     private EditText location;
+    private LinearProgressIndicator indicator;
 
     private FloatingActionButton uploadFab;
     private ImageView profileImage;;
@@ -61,7 +63,7 @@ public class EditActivity extends AppCompatActivity {
         setTitle("Edit Profile");
         setContentView(R.layout.activity_edit_profile);
 
-        editViewModel = new ViewModelProvider(this)
+        editViewModel = new ViewModelProvider(this, new EditViewModelFactory(this))
                 .get(EditViewModel.class);
 
         name = findViewById(R.id.edit_user_profile_name);
@@ -70,6 +72,7 @@ public class EditActivity extends AppCompatActivity {
         location = findViewById(R.id.edit_user_profile_location);
         uploadFab = findViewById(R.id.edit_profile_fab);
         profileImage = findViewById(R.id.profile_pic);
+        indicator = findViewById(R.id.linear_progress_indicator);
 
         name.setText(editViewModel.getName());
         phone.setText(editViewModel.getPhone());
@@ -132,10 +135,19 @@ public class EditActivity extends AppCompatActivity {
             }
         });
 
+        editViewModel.getUpdateResult().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                indicator.setVisibility(View.GONE);
+                Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+                finish();
+            }
+        });
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.edit_profile, menu);
 
         return true;
     }
@@ -145,7 +157,16 @@ public class EditActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         switch (id) {
+            case R.id.action_save:
+                //save profile
+                //prepare auth properties
+                indicator.setVisibility(View.VISIBLE);
+                HashMap props = new HashMap();
+                props.put("DisplayName", editViewModel.getName());
 
+                editViewModel.updateProfile(props);
+
+                break;
             case android.R.id.home:
                 onBackPressed();
                 return true;

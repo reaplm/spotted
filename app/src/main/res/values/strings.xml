@@ -22,4 +22,5 @@
     <string name="username_hint">Display Name</string>
     <string name="user_phone_hint">phone number</string>
     <string name="user_location_hint">location</string>
+    <string name="menu_save">save</string>
 </resources>
