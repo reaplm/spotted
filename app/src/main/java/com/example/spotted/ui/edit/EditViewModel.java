@@ -28,13 +28,13 @@ public class EditViewModel extends ViewModel {
     private FirebaseUser user;
 
     IUserDao userDao;
-    private MutableLiveData<String> resultMessage;
+    private MutableLiveData<Task> result;
 
 
     public EditViewModel(Context context){
         mContext = context;
         userDao = new UserDao();
-        resultMessage = new MutableLiveData<>();
+        result = new MutableLiveData<>();
         initialize();
     }
     public String getName() {
@@ -62,25 +62,34 @@ public class EditViewModel extends ViewModel {
     public void setImageUri(String imageUri){
         this.imageUri = imageUri;
     }
-    public LiveData<String> getUpdateResult(){
-        return resultMessage;
+    public LiveData<Task> getUpdateResult(){
+        return result;
     }
 
     public void updateProfile(HashMap<String, String> userProps){
         userDao.updateProfile(userProps,new OnCompleteListener<Task>(){
             @Override
             public void onComplete(@NonNull Task<Task> task) {
+                Intent intent = new Intent("ACTION_UPDATE_PROFILE");
                 if(task.isSuccessful()) {
-                    resultMessage.postValue("Profile updated successfully!");
+                    intent.putExtra("success", true);
+                    intent.putExtra("message","Profile updated successfully!");
+                   // resultMessage.postValue("Profile updated successfully!");
                 }
                 else {
                     if(task.getException() != null){
-                        resultMessage.postValue(task.getException().getMessage());
+                        intent.putExtra("success", false);
+                        intent.putExtra("message", task.getException().getMessage());
+                        ////resultMessage.postValue(task.getException().getMessage());
                     }
                     else{
-                        resultMessage.postValue("Failed to update profile");
+                        intent.putExtra("success", false);
+                        intent.putExtra("message", "Failed to update profile");
+                        //resultMessage.postValue("Failed to update profile");
                     }
                 }
+                mContext.sendBroadcast(intent);
+                result.postValue(task);
             }
         });
     }

@@ -1,5 +1,7 @@
 package com.example.spotted.ui.profile;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.spotted.services.FirebaseService;
@@ -7,33 +9,47 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class ProfileViewModel extends ViewModel {
     private FirebaseUser user;
-    private String phone;
-    private String email;
-    private String displayName;
+    private MutableLiveData<String> phone;
+    private MutableLiveData<String> email;
+    private MutableLiveData<String> displayName;
 
 
     public ProfileViewModel(){
-        if(FirebaseService.isLoggedIn()){
-            user = FirebaseService.getFirebaseAuth().getCurrentUser();
-            phone = user.getPhoneNumber() == null ? "78514962" : user.getPhoneNumber() ;
-            email = user.getEmail();
-
-            if(user.getDisplayName() != null)
-                displayName = user.getDisplayName().split(" ")[0];
-        }
+        phone = new MutableLiveData<>();
+        email = new MutableLiveData<>();
+        displayName = new MutableLiveData<>();
+       initialize();
 
     }
 
 
-    public String getEmail(){
+    public LiveData<String> getEmail(){
         return email;
     }
-    public String getPhone(){
+    public LiveData<String> getPhone(){
         return phone;
     }
-    public String getDisplayName(){
+    public LiveData<String> getDisplayName(){
         return displayName;
     }
 
+    public void initialize(){
+        //load user info
+        if(FirebaseService.isLoggedIn()){
+            user = FirebaseService.getFirebaseAuth().getCurrentUser();
+            email.postValue(user.getEmail());
+
+            if(user.getPhoneNumber() != null)
+                phone.postValue(user.getPhoneNumber());
+            else
+                phone.postValue("78514962");
+
+            if(user.getDisplayName() != null)
+                displayName.postValue(user.getDisplayName().split(" ")[0]);
+            else
+                displayName.postValue("");
+        }
+
+    }
 
 }

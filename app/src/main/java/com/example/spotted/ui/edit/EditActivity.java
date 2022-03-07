@@ -135,11 +135,11 @@ public class EditActivity extends AppCompatActivity {
             }
         });
 
-        editViewModel.getUpdateResult().observe(this, new Observer<String>() {
+        editViewModel.getUpdateResult().observe(this, new Observer<Task>() {
             @Override
-            public void onChanged(String s) {
+            public void onChanged(Task task) {
                 indicator.setVisibility(View.GONE);
-                Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+                //Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
                 finish();
             }
         });

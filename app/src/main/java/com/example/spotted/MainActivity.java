@@ -124,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
         IntentFilter filter = new IntentFilter();
         filter.addAction("ACTION_LOGIN");
         filter.addAction("ACTION_REGISTRATION");
+        filter.addAction("ACTION_UPDATE_PROFILE");
         registerReceiver(broadcastReceiver, filter);
 
         //Update UI
@@ -165,24 +166,40 @@ public class MainActivity extends AppCompatActivity {
             public void run() {
                 String action = intent.getAction();
                 Boolean success = intent.getBooleanExtra("success",false);
-
-                if(action.equals("ACTION_LOGIN") || action.equals("ACTION_REGISTRATION")){
-                    if(success){
-                        updateHeader();
-                        updateLoginMenu();
-                        showSnackBar("You have successfully logged in!");
-                    }
-                    else{
-                        if(intent.getStringExtra("error") != null){
-                            showDialog(action.split("_")[1], intent.getStringExtra("error") );
+                String message = intent.getStringExtra("message");
+                switch (action){
+                    case "ACTION_LOGIN": case   "ACTION_REGISTRATION":
+                        if(success){
+                            updateHeader();
+                            updateLoginMenu();
+                            showSnackBar("You have successfully logged in!");
                         }
                         else{
-                            showDialog(action.split("_")[1], "Sorry, an error occured.");
+                            if(intent.getStringExtra("error") != null){
+                                showDialog(action.split("_")[1], intent.getStringExtra("message") );
+                            }
+                            else{
+                                showDialog(action.split("_")[1], "Sorry, an error occured.");
+                            }
+
                         }
 
-                    }
+                    break;
+                    case "ACTION_UPDATE_PROFILE":
+                        if(success){
+                            System.out.println("Profile saved successfully");
+
+                            //update the header
+                            updateHeader();
+                        }
+                        else{
+                            System.out.println("Failed to save profile");
+                        }
+                        showSnackBar(message);
+                        break;
                 }
             }
+
         });
     }
     private void signOut() {

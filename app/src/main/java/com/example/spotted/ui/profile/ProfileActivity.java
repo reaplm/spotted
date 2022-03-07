@@ -1,6 +1,9 @@
 package com.example.spotted.ui.profile;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -8,11 +11,14 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.spotted.R;
+import com.example.spotted.services.LocalBroadcastManager;
 import com.example.spotted.ui.edit.EditActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
 
 public class ProfileActivity extends AppCompatActivity {
     private ProfileViewModel profileViewModel;
@@ -20,6 +26,7 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView phone;
     private TextView displayName;
     private ListView listView;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,10 +54,32 @@ public class ProfileActivity extends AppCompatActivity {
         email = findViewById(R.id.profile_email_text);
         displayName = findViewById(R.id.profile_name);
 
+        profileViewModel.getDisplayName().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                phone.setText(s);
+            }
+        });
+        profileViewModel.getEmail().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                email.setText(s);
+            }
+        });
+        profileViewModel.getDisplayName().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                displayName.setText(s);
+            }
+        });
 
-        phone.setText(profileViewModel.getPhone());
-        email.setText(profileViewModel.getEmail());
-        displayName.setText(profileViewModel.getDisplayName());
+
+
+
+        //Listen for update profile broadcasts
+        IntentFilter filter = new IntentFilter("ACTION_UPDATE_PROFILE");
+        filter.addAction("ACTION_UPDATE_PROFILE");
+        registerReceiver(broadcastReceiver, filter);
 
     }
 
@@ -64,4 +93,36 @@ public class ProfileActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+    /**
+     * Update ui after returning from edit profile
+     * @param intent containing task
+     */
+    public void updateUi(Intent intent){
+        View parentLayout = findViewById(R.id.profile_linearlayout);
+        String action = intent.getAction();
+        boolean success = intent.getBooleanExtra("success",false);
+        String message = intent.getStringExtra("message");
+        switch(action){
+            case "ACTION_UPDATE_PROFILE":
+                if(success){
+                    System.out.println("Profile saved successfully");
+                    profileViewModel.initialize();
+                }
+                else{
+                    System.out.println("Failed to save profile");
+                }
+                Snackbar.make(parentLayout, message, Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+        }
+    }
+
+    /**
+     * Listen for broadcasts from edit profile activity
+     */
+    BroadcastReceiver broadcastReceiver = new LocalBroadcastManager(){
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            updateUi(intent);
+        }
+    };
 }
