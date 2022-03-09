@@ -1,5 +1,7 @@
 package com.example.spotted.ui.profile;
 
+import android.net.Uri;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -12,12 +14,13 @@ public class ProfileViewModel extends ViewModel {
     private MutableLiveData<String> phone;
     private MutableLiveData<String> email;
     private MutableLiveData<String> displayName;
-
+    private MutableLiveData<Uri> photoUrl;
 
     public ProfileViewModel(){
         phone = new MutableLiveData<>();
         email = new MutableLiveData<>();
         displayName = new MutableLiveData<>();
+        photoUrl = new MutableLiveData<>();
        initialize();
 
     }
@@ -32,6 +35,7 @@ public class ProfileViewModel extends ViewModel {
     public LiveData<String> getDisplayName(){
         return displayName;
     }
+    public  LiveData<Uri> getPhotoUrl(){ return photoUrl;}
 
     public void initialize(){
         //load user info
@@ -48,6 +52,9 @@ public class ProfileViewModel extends ViewModel {
                 displayName.postValue(user.getDisplayName().split(" ")[0]);
             else
                 displayName.postValue("");
+
+            if(user.getPhotoUrl() != null)
+                photoUrl.postValue(user.getPhotoUrl());
         }
 
     }

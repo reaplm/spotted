@@ -4,9 +4,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -25,7 +27,8 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView email;
     private TextView phone;
     private TextView displayName;
-    private ListView listView;
+    private ImageView profileImage;
+
 
 
     @Override
@@ -53,6 +56,7 @@ public class ProfileActivity extends AppCompatActivity {
         phone = findViewById(R.id.profile_phone_text);
         email = findViewById(R.id.profile_email_text);
         displayName = findViewById(R.id.profile_name);
+        profileImage = findViewById(R.id.profile_pic);
 
         profileViewModel.getDisplayName().observe(this, new Observer<String>() {
             @Override
@@ -70,6 +74,12 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onChanged(String s) {
                 displayName.setText(s);
+            }
+        });
+        profileViewModel.getPhotoUrl().observe(this, new Observer<Uri>() {
+            @Override
+            public void onChanged(Uri uri) {
+                profileImage.setImageURI(uri);
             }
         });
 

@@ -43,7 +43,6 @@
                         android:layout_height="120dp"
                         android:src="@drawable/ic_action_account"
                         android:scaleType="centerCrop"
-                        android:tint="@color/colorPrimary"
                         />
 
                 </androidx.cardview.widget.CardView>
