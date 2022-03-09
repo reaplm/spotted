@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -229,6 +230,7 @@ public class MainActivity extends AppCompatActivity {
         FirebaseUser user = FirebaseService.getFirebaseAuth().getCurrentUser();
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         View headerView = navigationView.getHeaderView(0);
+        ImageView profileImage = headerView.findViewById(R.id.profile_image);
 
         TextView header_title= headerView.findViewById(R.id.nav_header_title);
 
@@ -237,6 +239,12 @@ public class MainActivity extends AppCompatActivity {
                 header_title.setText(user.getDisplayName().split(" ")[0]);
             else
                 header_title.setText(user.getEmail());
+
+            if(user.getPhotoUrl() != null)
+                profileImage.setImageURI(user.getPhotoUrl());
+            else
+                profileImage.setImageResource(R.mipmap.ic_launcher_round);
+
         } else {
             header_title.setText("");
         }
