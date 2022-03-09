@@ -96,6 +96,7 @@ public class EditActivity extends AppCompatActivity {
         phone.setText(editViewModel.getPhone());
         email.setText(editViewModel.getEmail());
         location.setText(editViewModel.getLocation());
+        profileImage.setImageURI(editViewModel.getImageUri());
 
 
         name.addTextChangedListener(new TextWatcher() {
@@ -230,6 +231,7 @@ public class EditActivity extends AppCompatActivity {
     private void handleCameraImage(Intent data){
         Bitmap image = BitmapFactory.decodeFile(currentPhotoPath);
         profileImage.setImageBitmap(image);
+        editViewModel.setImageUri(Uri.parse(currentPhotoPath));
     }
     //Create file to store captured image
     private File createImageFile() throws IOException {
@@ -316,6 +318,7 @@ public class EditActivity extends AppCompatActivity {
     private void handleResultImage(Intent data) {
         Uri selectedImageUri = data.getData();
         profileImage.setImageURI(selectedImageUri);
+        editViewModel.setImageUri(selectedImageUri);
         saveSelectedImage(selectedImageUri);
     }
 

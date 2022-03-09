@@ -3,6 +3,7 @@ package com.example.spotted.ui.edit;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
@@ -24,7 +25,7 @@ public class EditViewModel extends ViewModel {
     private String  name;
     private String  email;
     private String  location;
-    private String imageUri;
+    private Uri imageUri;
     private FirebaseUser user;
 
     IUserDao userDao;
@@ -58,8 +59,8 @@ public class EditViewModel extends ViewModel {
     public void setLocation(String location) {
         this.location = location;
     }
-    public String getImageUri(){return imageUri;}
-    public void setImageUri(String imageUri){
+    public Uri getImageUri(){return imageUri;}
+    public void setImageUri(Uri imageUri){
         this.imageUri = imageUri;
     }
     public LiveData<Task> getUpdateResult(){
@@ -108,7 +109,7 @@ public class EditViewModel extends ViewModel {
                 name = "";
 
             if(user.getPhotoUrl() != null)
-                imageUri = user.getPhotoUrl().toString();
+                imageUri = user.getPhotoUrl();
 
 
         }
