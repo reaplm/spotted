@@ -56,9 +56,8 @@ public class RegisterFragment extends Fragment {
         email = root.findViewById(R.id.register_email);
         password = root.findViewById(R.id.register_password);
         registerButton = root.findViewById(R.id.register_button);
-        rememberMeCheck = root.findViewById(R.id.register_rememberme);
         progressIndicator = root.findViewById(R.id.linear_progress_indicator);
-        progressIndicator.setVisibility(View.INVISIBLE);
+        progressIndicator.setVisibility(View.GONE);
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,7 +73,7 @@ public class RegisterFragment extends Fragment {
         registerViewModel.getAuthResult().observe(getViewLifecycleOwner(), new Observer<Task<AuthResult>>() {
             @Override
             public void onChanged(Task<AuthResult> authResultTask) {
-                progressIndicator.setVisibility(View.INVISIBLE);
+                progressIndicator.setVisibility(View.GONE);
                 Intent intent = new Intent("ACTION_REGISTRATION");
                 if(authResultTask.isComplete()){
                     intent.putExtra("success", authResultTask.isSuccessful());

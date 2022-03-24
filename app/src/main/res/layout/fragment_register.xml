@@ -1,73 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_weight="0"
     android:orientation="vertical">
 <com.google.android.material.progressindicator.LinearProgressIndicator
     android:id="@+id/linear_progress_indicator"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:visibility="visible"/>
+    android:indeterminate="true"
+    android:visibility="gone"
+    android:layout_weight="0"
+    app:indicatorColor="@color/colorAccent"/>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="bottom"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="@dimen/form_padding"
+        android:background="@color/colorPrimary">
+        <ImageView
+            android:id="@+id/profile_pic"
+            android:layout_width="@dimen/form_image_width_md"
+            android:layout_height="@dimen/form_image_height_md"
+            android:layout_marginBottom="@dimen/form_text_edit_spacing"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/colorAccent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_briefcase_icon" />
 
-
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Create Account"
+            android:textColor="@color/form_text_color"
+            android:textSize="30sp"
+            />
         <EditText
             android:id="@+id/register_fname"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorPrimaryDark"
-            android:hint="First Name"
-            android:textColor="@color/colorPrimaryDark"
-            android:textColorHint="@color/colorAccent"
+            android:layout_height="@dimen/form_text_edit_height"
+            android:layout_marginTop="@dimen/form_text_edit_spacing"
+            android:paddingLeft="@dimen/form_text_edit_padding"
+            android:paddingRight="@dimen/form_text_edit_padding"
+            android:background="@drawable/rounded_edit_text"
+            android:hint="@string/form_fname_hint"
+            android:inputType="text"
+            android:textColor="@color/form_text_color"
+            android:textColorHint="@color/form_text_hint"
             android:textCursorDrawable="@drawable/custom_cursor" />
 
         <EditText
             android:id="@+id/register_lname"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorPrimaryDark"
-            android:hint="Last Name"
-            android:textColor="@color/colorPrimaryDark"
-            android:textColorHint="@color/colorAccent"
+            android:layout_height="@dimen/form_text_edit_height"
+            android:layout_marginTop="@dimen/form_text_edit_spacing"
+            android:paddingLeft="@dimen/form_text_edit_padding"
+            android:paddingRight="@dimen/form_text_edit_padding"
+            android:background="@drawable/rounded_edit_text"
+            android:hint="@string/form_lname_hint"
+            android:inputType="text"
+            android:textColor="@color/form_text_color"
+            android:textColorHint="@color/form_text_hint"
             android:textCursorDrawable="@drawable/custom_cursor" />
 
         <EditText
             android:id="@+id/register_phone"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorPrimaryDark"
-            android:hint="Phone"
-            android:textColor="@color/colorPrimaryDark"
-            android:textColorHint="@color/colorAccent"
+            android:layout_height="@dimen/form_text_edit_height"
+            android:layout_marginTop="@dimen/form_text_edit_spacing"
+            android:paddingLeft="@dimen/form_text_edit_padding"
+            android:paddingRight="@dimen/form_text_edit_padding"
+            android:background="@drawable/rounded_edit_text"
+            android:hint="@string/form_phone_hint"
+            android:inputType="number"
+            android:textColor="@color/form_text_color"
+            android:textColorHint="@color/form_text_hint"
             android:textCursorDrawable="@drawable/custom_cursor" />
 
         <EditText
             android:id="@+id/register_email"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorPrimaryDark"
-            android:hint="Email"
-            android:textColor="@color/colorPrimaryDark"
-            android:textColorHint="@color/colorAccent"
+            android:layout_height="@dimen/form_text_edit_height"
+            android:layout_marginTop="@dimen/form_text_edit_spacing"
+            android:paddingLeft="@dimen/form_text_edit_padding"
+            android:paddingRight="@dimen/form_text_edit_padding"
+            android:background="@drawable/rounded_edit_text"
+            android:hint="@string/form_email_hint"
+            android:textColor="@color/form_text_color"
+            android:textColorHint="@color/form_text_hint"
             android:textCursorDrawable="@drawable/custom_cursor"
             android:inputType="textEmailAddress"/>
 
         <EditText
             android:id="@+id/register_password"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorPrimaryDark"
-            android:hint="Password"
-            android:textColor="@color/colorPrimaryDark"
-            android:textColorHint="@color/colorAccent"
+            android:layout_height="@dimen/form_text_edit_height"
+            android:layout_marginTop="@dimen/form_text_edit_spacing"
+            android:paddingLeft="@dimen/form_text_edit_padding"
+            android:paddingRight="@dimen/form_text_edit_padding"
+            android:background="@drawable/rounded_edit_text"
+            android:hint="@string/form_password_hint"
+            android:textColor="@color/form_text_color"
+            android:textColorHint="@color/form_text_hint"
             android:textCursorDrawable="@drawable/custom_cursor"
             android:inputType="textPassword"
             />
@@ -76,31 +115,12 @@
             android:id="@+id/register_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/form_text_edit_spacing"
             android:background="@drawable/rounded_button"
             android:text="Submit"
-            android:textColor="@color/white" />
+            app:backgroundTint="@null"
+            android:textColor="@color/form_button_text" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@+id/register_rememberme"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:buttonTint="@color/colorPrimaryDark"
-                android:textColor="@color/colorPrimaryDark"
-
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Remember Me"
-                android:textColor="@color/colorPrimaryDark" />
-        </LinearLayout>
 
     </LinearLayout>
 </LinearLayout>

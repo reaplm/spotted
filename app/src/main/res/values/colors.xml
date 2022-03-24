@@ -3,8 +3,11 @@
     <color name="colorPrimary">#aa00ff</color>
     <color name="colorPrimaryDark">#7200ca</color>
     <color name="colorAccent">#e254ff</color>
-    <color name="colorOnSecondary">@color/white</color>
 
+
+    <color name="colorSecondary">#ea80fc</color>
+    <color name="colorSecondaryVariant">#b64fc8</color>
+    <color name="colorOnSecondary">@color/white</color>
     <!--- TabLayout -->
 
     <color name="tabBackground">@color/colorPrimary</color>
@@ -26,6 +29,13 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
-s
+
+    <!-- Form Colors -->
+    <color name="form_text_hint">@color/colorAccent</color>
+    <color name="form_text_color">@color/white</color>
+    <color name="form_text_link">@color/white</color>
+    <color name="form_button_text">@color/colorPrimaryDark</color>
+    <color name="form_checkbox_color">@color/white</color>
+    <color name="form_check_text_color">@color/white</color>
 
 </resources>

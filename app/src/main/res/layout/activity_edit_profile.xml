@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:background="@color/colorPrimary"
         >
         <com.google.android.material.progressindicator.LinearProgressIndicator
             android:id="@+id/linear_progress_indicator"
@@ -20,29 +21,31 @@
             android:layout_weight="0"/>
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="@dimen/profile_header"
             android:orientation="vertical"
             android:gravity="center_horizontal|center_vertical">
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="@dimen/profile_header_frame"
                 android:orientation="vertical"
                 android:gravity="center_horizontal|center_vertical"
                 >
                 <androidx.cardview.widget.CardView
                     android:layout_gravity="center_horizontal"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="20dp"
-                    app:cardCornerRadius="120dp"
+                    android:layout_width="@dimen/profile_image_circle"
+                    android:layout_height="@dimen/profile_image_circle"
+                    android:layout_marginBottom="@dimen/form_top_bot_margin"
+                    android:layout_marginTop="@dimen/form_top_bot_margin"
+                    app:cardCornerRadius="@dimen/profile_image_circle"
+                    android:backgroundTint="@color/colorAccent"
                     >
                     <ImageView
                         android:id="@+id/profile_pic"
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:src="@drawable/ic_action_account"
+                        android:layout_width="@dimen/profile_image_size"
+                        android:layout_height="@dimen/profile_image_size"
+                        android:src="@drawable/icon_acount"
                         android:scaleType="centerCrop"
+                        android:tint="@color/white"
                         />
 
                 </androidx.cardview.widget.CardView>
@@ -51,177 +54,127 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|center"
-                    android:layout_marginBottom="30dp"
-                    android:layout_marginLeft="30dp"
-                    app:srcCompat="@android:drawable/ic_menu_camera"
-                    android:backgroundTint="@color/colorPrimary"
+                    android:layout_marginBottom="@dimen/form_header_fab_margin"
+                    android:layout_marginLeft="@dimen/form_header_fab_margin"
+                    app:srcCompat="@drawable/ic_action_camera_filled"
+                    app:backgroundTint="@color/colorPrimaryDark"
                     />
             </FrameLayout>
-
-
-
             <TextView
                 android:id="@+id/edit_user_profile_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10sp"
+                android:layout_marginBottom="@dimen/form_text_edit_spacing"
                 android:textAlignment="center"
-                android:textColor="@color/colorPrimaryDark"
+                android:textColor="@color/colorAccent"
                 android:text="Email"
                 />
 
         </LinearLayout>
-        <androidx.cardview.widget.CardView
-            android:layout_gravity="center_horizontal"
+        <GridLayout
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            app:cardBackgroundColor="@color/colorAccent"
-            app:cardCornerRadius="30dp">
-            <GridLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:rowCount="1"
-                android:columnCount="3"
-                >
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_action_email"
-                    android:scaleType="centerCrop"
-                    android:layout_gravity="center"
-                    android:padding="10dp"
-                    app:tint="@color/white"
-                    />
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="20dp"
-                    android:layout_column="1"
-                    android:layout_row="0"
-                    android:layout_columnSpan="2">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:text="Name"
-                        />
-                    <EditText
-                        android:id="@+id/edit_user_profile_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:hint="@string/username_hint"
-                        />
-                </LinearLayout>
-            </GridLayout>
-        </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
-            android:layout_gravity="center_horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            app:cardBackgroundColor="@color/colorAccent"
-            app:cardCornerRadius="30dp">
-            <GridLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:rowCount="1"
-                android:columnCount="3"
-                >
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_action_phone"
-                    android:scaleType="centerCrop"
-                    android:layout_gravity="center"
-                    android:padding="10dp"
-                    app:tint="@color/white" />
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="20dp"
-                    android:layout_column="1"
-                    android:layout_row="0"
-                    android:layout_columnSpan="2">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:text="Phone"
-                        />
-                    <EditText
-                        android:id="@+id/edit_user_profile_phone"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:hint="@string/user_phone_hint"
-                        />
-                </LinearLayout>
-            </GridLayout>
-        </androidx.cardview.widget.CardView>
-        <androidx.cardview.widget.CardView
-            android:layout_gravity="center_horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            app:cardCornerRadius="30dp"
-            app:cardBackgroundColor="@color/colorAccent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/form_left_right_margin"
+            android:layout_marginRight="@dimen/form_left_right_margin"
+            android:layout_marginBottom="@dimen/form_text_edit_spacing"
+            android:background="@drawable/rounded_edit_text"
+            android:rowCount="1"
+            android:columnCount="3"
             >
-            <GridLayout
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_action_account"
+                android:scaleType="centerCrop"
+                android:paddingLeft="@dimen/form_image_edit_spacing"
+                app:tint="@color/colorAccent"
+                />
+            <EditText
+                android:id="@+id/edit_user_profile_name"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:rowCount="1"
-                android:columnCount="3">
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:src="@drawable/ic_action_location"
-                    android:scaleType="centerCrop"
-                    android:layout_column="0"
-                    android:layout_row="0"
-                    android:padding="10dp"
-                    app:tint="@color/white"
-                    />
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="20dp"
-                    android:layout_column="1"
-                    android:layout_row="0"
-                    android:layout_columnSpan="2">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:text="Location"
-                        />
-                    <EditText
-                        android:id="@+id/edit_user_profile_location"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:hint="@string/user_location_hint"
-                        />
-                </LinearLayout>
-            </GridLayout>
-        </androidx.cardview.widget.CardView>
+                android:layout_height="@dimen/form_text_edit_height"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/form_image_edit_spacing"
+                android:layout_marginRight="@dimen/form_text_edit_grid_mr"
+                android:layout_column="1"
+                android:layout_columnSpan="2"
+                android:layout_row="0"
+                android:hint="@string/form_username_hint"
+                android:textColor="@color/form_text_color"
+                android:textColorHint="@color/form_text_hint"
+                android:background="@null"
+                />
+
+        </GridLayout>
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="3"
+            android:rowCount="1"
+            android:layout_marginLeft="@dimen/form_left_right_margin"
+            android:layout_marginRight="@dimen/form_left_right_margin"
+            android:layout_marginBottom="@dimen/form_text_edit_spacing"
+            android:background="@drawable/rounded_edit_text">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_action_phone"
+                android:scaleType="centerCrop"
+                android:paddingLeft="@dimen/form_image_edit_spacing"
+                app:tint="@color/colorAccent"/>
+            <EditText
+                android:id="@+id/edit_user_profile_phone"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/form_text_edit_height"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/form_image_edit_spacing"
+                android:layout_marginRight="@dimen/form_text_edit_grid_mr"
+                android:layout_column="1"
+                android:layout_columnSpan="2"
+                android:layout_row="0"
+                android:hint="@string/form_phone_hint"
+                android:textColor="@color/form_text_color"
+                android:textColorHint="@color/form_text_hint"
+                android:background="@null" />
+        </GridLayout>
+
+        <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/form_left_right_margin"
+            android:layout_marginRight="@dimen/form_left_right_margin"
+            android:layout_marginBottom="@dimen/form_text_edit_spacing"
+            android:rowCount="1"
+            android:columnCount="2"
+            android:background="@drawable/rounded_edit_text">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_column="0"
+                android:src="@drawable/ic_action_location"
+                android:scaleType="centerCrop"
+                android:paddingLeft="@dimen/form_image_edit_spacing"
+                app:tint="@color/colorAccent"
+                />
+            <EditText
+                android:id="@+id/edit_user_profile_location"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/form_text_edit_height"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/form_image_edit_spacing"
+                android:layout_marginRight="@dimen/form_text_edit_grid_mr"
+                android:layout_column="1"
+                android:hint="@string/form_location_hint"
+                android:textColor="@color/form_text_color"
+                android:textColorHint="@color/form_text_hint"
+                android:background="@null"
+                />
+        </GridLayout>
 
     </LinearLayout>
 
