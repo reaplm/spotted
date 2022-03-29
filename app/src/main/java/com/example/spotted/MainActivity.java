@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_likes, R.id.nav_settings,
-                R.id.nav_about, R.id.nav_login)
+                R.id.nav_help, R.id.nav_login)
                 .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -84,8 +84,8 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.nav_likes:
                         navController.navigate(R.id.nav_likes);
                         break;
-                    case R.id.nav_about:
-                        navController.navigate(R.id.nav_about);
+                    case R.id.nav_help:
+                        navController.navigate(R.id.nav_help);
                         break;
                     case R.id.nav_settings:
                         navController.navigate(R.id.nav_settings);

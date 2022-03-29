@@ -16,6 +16,7 @@
     <string name="menu_register">Register</string>
     <string name="menu_logout">Log Out</string>
     <string name="menu_login">Log In</string>
+    <string name="menu_help">Help and Feedback</string>
     <string name="no_data_available">No data available</string>
     <string name="register_link"><u>Create Account</u></string>
     <string name="user_location_hint">location</string>
