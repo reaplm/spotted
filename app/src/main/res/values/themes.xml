@@ -12,6 +12,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="preferenceTheme">@style/AppTheme.PreferenceTheme</item>
 
     </style>
 
@@ -23,4 +24,13 @@
     <style name="Theme.Spotted.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.Spotted.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!-- Preferences -->
+    <style name="AppTheme.PreferenceTheme" parent="PreferenceThemeOverlay">
+
+    </style>
+
+    <style name="listViewPrefs" parent="@android:style/Widget.ListView">
+
+    </style>
 </resources>

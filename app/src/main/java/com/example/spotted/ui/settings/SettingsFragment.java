@@ -1,6 +1,10 @@
 package com.example.spotted.ui.settings;
 
+import android.content.Context;
 import android.os.Bundle;
+import androidx.preference.Preference;
+
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,25 +15,49 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.preference.Preference;
+import androidx.preference.PreferenceFragmentCompat;
 
 import com.example.spotted.R;
 
-public class SettingsFragment extends Fragment {
+public class SettingsFragment extends PreferenceFragmentCompat {
 
     private SettingsViewModel settingsViewModel;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
+    @Override
+    public void onCreatePreferences(@Nullable Bundle savedInstanceState, @Nullable String rootKey) {
+        setPreferencesFromResource(R.xml.fragment_settings, rootKey);
+        
+
         settingsViewModel =
                 new ViewModelProvider(this).get(SettingsViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_settings, container, false);
-        final TextView textView = root.findViewById(R.id.text_slideshow);
-        settingsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+
+        //About
+        Preference aboutPref = findPreference("about");
+        aboutPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
             @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
+            public boolean onPreferenceClick(@NonNull Preference preference) {
+                //Open browser
+                return true;
             }
         });
-        return root;
+        //Agreement
+        Preference agreementPref = findPreference("about");
+        agreementPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(@NonNull Preference preference) {
+                //Open document
+                return true;
+            }
+        });
+        //Privacy
+        Preference privacyPref = findPreference("about");
+        privacyPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(@NonNull Preference preference) {
+                return true;
+            }
+        });
     }
+
 }

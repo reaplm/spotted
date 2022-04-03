@@ -24,7 +24,9 @@
         android:id="@+id/nav_settings"
         android:name="com.example.spotted.ui.settings.SettingsFragment"
         android:label="@string/menu_settings"
-        tools:layout="@layout/fragment_settings" />
+         />
+    <action android:id="@+id/open_setting_fragment"
+        app:destination="@id/nav_settings" />
     <fragment
         android:id="@+id/nav_help"
         android:name="com.example.spotted.ui.help.HelpFragment"

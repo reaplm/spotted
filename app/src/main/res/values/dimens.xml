@@ -43,5 +43,6 @@
     <dimen name="list_item_circle_text_size">15sp</dimen>
     <dimen name="list_item_grid_details">230dp</dimen>
     <dimen name="list_item_icon">5dp</dimen>
+    <dimen name="page_heading">30sp</dimen>
 
 </resources>

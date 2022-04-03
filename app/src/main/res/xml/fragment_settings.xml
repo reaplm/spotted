@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    
+     >
+    <PreferenceCategory
+        >
+        <SwitchPreference
+            android:key = "notifications"
+            android:summaryOff = "Don't Allow Notifications"
+            android:summaryOn = "Allow Notifications"
+            android:title = "Notifications"
+            android:icon="@drawable/ic_action_notification"
+            />
+        <Preference
+            android:key = "account"
+            android:title = "Account"
+            android:icon="@drawable/ic_action_account"
+            />
+    </PreferenceCategory>
+    <PreferenceCategory>
+        <Preference
+            android:key = "about"
+            android:title = "About"
+            android:icon="@drawable/ic_action_info"
+            />
+        <Preference
+            android:key = "agreement"
+            android:title = "User Agreement"
+            android:icon="@drawable/ic_action_handshake"
+            android:iconTint="@color/colorPrimaryDark"
+            />
+        <Preference
+            android:key = "privacy"
+            android:title = "Privacy Policy"
+            android:icon="@drawable/ic_action_privacy"
+            />
+    </PreferenceCategory>
+    <PreferenceCategory>
+        <Preference
+            android:key = "version"
+            android:title = "Version"
+            />
+    </PreferenceCategory>
+</PreferenceScreen>
