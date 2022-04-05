@@ -22,14 +22,15 @@ public class HelpFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_help, container, false);
-        helpText = root.findViewById(R.id.help_text);
+        //helpText = root.findViewById(R.id.help_text);
 
         helpViewModel = new ViewModelProvider(getActivity()).get(HelpViewModel.class);
 
         helpViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(String s) {
-                helpText.setText(s);
+
+                //helpText.setText(s);
             }
         });
 

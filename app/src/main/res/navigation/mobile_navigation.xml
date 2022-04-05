@@ -30,7 +30,7 @@
     <fragment
         android:id="@+id/nav_help"
         android:name="com.example.spotted.ui.help.HelpFragment"
-        android:label="@string/menu_help"
+        android:label="@string/help_label"
         tools:layout="@layout/fragment_help" />
     <fragment
         android:id="@+id/nav_login"

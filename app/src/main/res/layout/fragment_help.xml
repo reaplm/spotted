@@ -3,19 +3,140 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <TextView
-        android:id="@+id/help_text"
-        android:layout_width="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorPrimary">
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/help_flexbox"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:alignContent="center"
+        app:alignItems="center"
+        app:flexWrap="wrap"
+        app:showDivider="beginning|middle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_margin="10dp"
+        >
+
+        <CheckBox
+            android:id="@+id/help_design_chk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/form_text_edit_spacing"
+            android:padding="@dimen/form_text_edit_spacing"
+            android:background="@drawable/checkbox_indicator"
+            android:button="@android:color/transparent"
+            android:text="@string/help_checkbox_design"
+            android:textColor="@color/white"
+            android:textSize="20dp"/>
+        <CheckBox
+            android:id="@+id/help_notification_chk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/form_text_edit_spacing"
+            android:padding="@dimen/form_text_edit_spacing"
+            android:background="@drawable/checkbox_indicator"
+            android:button="@android:color/transparent"
+            android:text="@string/help_checkbox_notif"
+            android:textColor="@color/white"
+            android:textSize="20dp"/>
+        <CheckBox
+        android:id="@+id/help_language_chk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/form_text_edit_spacing"
+        android:padding="@dimen/form_text_edit_spacing"
+        android:background="@drawable/checkbox_indicator"
+        android:button="@android:color/transparent"
+        android:text="@string/help_checkbox_lang"
+            android:textColor="@color/white"
+        android:textSize="20dp"/>
+        <CheckBox
+        android:id="@+id/help_ads_chk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/form_text_edit_spacing"
+        android:padding="@dimen/form_text_edit_spacing"
+        android:background="@drawable/checkbox_indicator"
+        android:button="@android:color/transparent"
+        android:text="ads"
+            android:textColor="@color/white"
+        android:textSize="20dp"/>
+        <CheckBox
+        android:id="@+id/help_subscription_chk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/form_text_edit_spacing"
+        android:padding="@dimen/form_text_edit_spacing"
+        android:background="@drawable/checkbox_indicator"
+        android:button="@android:color/transparent"
+        android:text="@string/help_checkbox_subs"
+            android:textColor="@color/white"
+        android:textSize="20dp"/>
+        <CheckBox
+        android:id="@+id/help_other_chk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/form_text_edit_spacing"
+        android:padding="@dimen/form_text_edit_spacing"
+        android:background="@drawable/checkbox_indicator"
+        android:button="@android:color/transparent"
+        android:text="@string/help_checkbox_other"
+        android:textSize="20dp"
+            android:textColor="@color/white"/>
+    </com.google.android.flexbox.FlexboxLayout>
+    <FrameLayout
+        android:id="@+id/help_framelayout"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/form_text_edit_height_lg"
+        android:orientation="vertical"
+        android:gravity="center_horizontal|center_vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/help_flexbox"
+
+        >
+        <EditText
+            android:id="@+id/help_feedback_edit"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+           android:layout_margin="10dp"
+            android:background="@drawable/border_rectangle"
+            android:textColor="@color/white"
+            android:textAlignment="textStart"/>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/edit_profile_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_marginLeft="@dimen/form_header_fab_margin"
+            app:srcCompat="@drawable/ic_action_camera_filled"
+            app:backgroundTint="@color/colorPrimaryDark"
+            />
+    </FrameLayout>
+
+
+    <Button
+        android:id="@+id/login_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/form_text_edit_spacing"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/help_framelayout"
+        android:layout_margin="@dimen/form_text_edit_spacing"
+        android:background="@drawable/rounded_button"
+        android:text="@string/menu_submit"
+        android:textColor="@color/form_button_text"
+        app:backgroundTint="@null" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

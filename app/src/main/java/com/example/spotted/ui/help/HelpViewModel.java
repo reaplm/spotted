@@ -8,7 +8,7 @@ public class HelpViewModel extends ViewModel {
     private MutableLiveData<String> text = new MutableLiveData<>();
 
     public HelpViewModel(){
-        text.postValue("This is Help and Feedback Fragment");
+        text.postValue("What are you unhappy with?");
     }
     public LiveData<String> getText(){
         return text;

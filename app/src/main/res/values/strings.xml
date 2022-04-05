@@ -19,8 +19,11 @@
     <string name="menu_help">Help and Feedback</string>
     <string name="no_data_available">No data available</string>
     <string name="register_link"><u>Create Account</u></string>
-    <string name="user_location_hint">location</string>
+
+    <!-- Buttons -->
     <string name="menu_save">save</string>
+    <string name="menu_submit">submit</string>
+    <string name="help_label">What are you unhappy with?</string>
     <!-- Form Hints -->
     <string name="form_fname_hint">First Name</string>
     <string name="form_lname_hint">Last Name</string>
@@ -29,4 +32,13 @@
     <string name="form_password_hint">Password</string>
     <string name="form_username_hint">Display Name</string>
     <string name="form_location_hint">Location</string>
+    <string name="user_location_hint">location</string>
+
+    <!--Button Checkbox -->
+    <string name="help_checkbox_design">Design</string>
+    <string name="help_checkbox_notif">Notifications</string>
+    <string name="help_checkbox_lang">Language</string>
+    <string name="help_checkbox_subs">Subscription</string>
+    <string name="help_checkbox_other">Other</string>
+
 </resources>
