@@ -4,13 +4,36 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.spotted.services.FirebaseService;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class HelpViewModel extends ViewModel {
-    private MutableLiveData<String> text = new MutableLiveData<>();
+    private String bodyText;
+    private List<String> topics;
+    private String email;
 
     public HelpViewModel(){
-        text.postValue("What are you unhappy with?");
+        topics = new ArrayList<>();
+        if(FirebaseService.isLoggedIn()){
+            String email = FirebaseService.getFirebaseAuth()
+                    .getCurrentUser().getEmail();
+
+        }
     }
-    public LiveData<String> getText(){
-        return text;
+    public void setBodyText(String text){
+        bodyText = text;
+    }
+    public void addTopic(String topic){
+        topics.add(topic);
+    }
+    public void removeTopic(String topic){
+        topics.remove(topics.indexOf(topic));
+    }
+    public void submit(){
+        //Get user email
+
     }
 }

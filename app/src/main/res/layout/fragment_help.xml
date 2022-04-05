@@ -90,7 +90,8 @@
         android:button="@android:color/transparent"
         android:text="@string/help_checkbox_other"
         android:textSize="@dimen/form_chk_btn_text"
-            android:textColor="@color/colorPrimaryDark"/>
+            android:textColor="@color/colorPrimaryDark"
+            />
     </com.google.android.flexbox.FlexboxLayout>
     <FrameLayout
         android:id="@+id/help_framelayout"
@@ -114,7 +115,7 @@
             android:gravity="top"
             />
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/edit_profile_fab"
+            android:id="@+id/help_attacment_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
@@ -126,7 +127,7 @@
 
 
     <Button
-        android:id="@+id/login_button"
+        android:id="@+id/feedback_submit_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/form_text_edit_spacing"
