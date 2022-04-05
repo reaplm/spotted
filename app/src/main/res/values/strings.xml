@@ -40,5 +40,6 @@
     <string name="help_checkbox_lang">Language</string>
     <string name="help_checkbox_subs">Subscription</string>
     <string name="help_checkbox_other">Other</string>
+    <string name="help_checkbox_ads">Ads</string>
 
 </resources>
