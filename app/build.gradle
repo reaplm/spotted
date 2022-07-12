@@ -32,6 +32,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    packagingOptions {
+        pickFirst  'META-INF/*'
+    }
 }
 
 dependencies {
@@ -51,8 +54,8 @@ dependencies {
 
     implementation 'androidx.preference:preference:1.2.0'
     implementation 'com.google.android:flexbox:2.0.1'
-
-
+    // https://mvnrepository.com/artifact/com.sun.mail/android-mail
+    implementation group: 'com.sun.mail', name: 'android-mail', version: '1.6.7'
 
     // Import the Firebase BoM
     implementation platform('com.google.firebase:firebase-bom:29.0.3')

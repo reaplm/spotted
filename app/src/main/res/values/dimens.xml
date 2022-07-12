@@ -37,7 +37,7 @@
 
     <!-- List Dimensions -->
     <dimen name="list_item_padding">8dp</dimen>
-    <dimen name="list_item_text_size">15</dimen>
+    <dimen name="list_item_text_size">15sp</dimen>
     <dimen name="list_item_margin">20dp</dimen>
     <dimen name="list_item_grid_padding">5dp</dimen>
     <dimen name="list_item_circle">50dp</dimen>
