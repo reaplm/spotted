@@ -1,7 +1,10 @@
 package com.example.spotted.ui.settings;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.preference.Preference;
 
 import android.util.AttributeSet;
@@ -58,6 +61,37 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 return true;
             }
         });
+        //Account
+        Preference accountPref = findPreference("account");
+        accountPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(@NonNull Preference preference) {
+                //Open Dialog
+                openAccountDialog();
+                return true;
+            }
+        });
+    }
+
+    private void openAccountDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(R.string.delete_account_msg)
+                    .setTitle(R.string.delete_account);
+
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                // delete all info
+            }
+        });
+        builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog dialog = builder.create();
+
+        dialog.show();
     }
 
 }

@@ -42,4 +42,12 @@
     <string name="help_checkbox_other">Other</string>
     <string name="help_checkbox_ads">Ads</string>
 
+    <!--Fragment text -->
+    <string name="delete_account">Delete Account</string>
+    <string name="delete_account_msg">This will delete all account info and profile photo</string>
+
+    <!-- Dialogs -->
+    <string name="ok">Ok</string>
+    <string name="cancel">Cancel</string>
+
 </resources>
