@@ -81,6 +81,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // delete all info
+                settingsViewModel.deleteUser();
             }
         });
         builder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
