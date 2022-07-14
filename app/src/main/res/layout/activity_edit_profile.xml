@@ -45,7 +45,6 @@
                         android:layout_height="@dimen/profile_image_size"
                         android:src="@drawable/icon_acount"
                         android:scaleType="centerCrop"
-                        android:tint="@color/white"
                         />
 
                 </androidx.cardview.widget.CardView>
