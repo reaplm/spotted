@@ -82,18 +82,19 @@ public class LoginFragment extends Fragment {
                 Intent intent = new Intent("ACTION_LOGIN");
 
                 if(authResultTask.isComplete()){
-                    intent.putExtra("success", authResultTask.isSuccessful());
+                   // intent.putExtra("success", authResultTask.isSuccessful());
                     if(!authResultTask.isSuccessful()){ //login failed
                         if(authResultTask.getException() != null){
-                            intent.putExtra("error", authResultTask.getException().getMessage());
+
+                            intent.putExtra("message", authResultTask.getException().getMessage());
                         }
                         else{
-                            intent.putExtra("error", "Login Failed");
+                            intent.putExtra("message", "Login Failed");
                         }
 
                     }
                 }
-                else{ intent.putExtra("error", "Failed to complete task");}
+                else{ intent.putExtra("message", "Failed to complete task");}
 
                 //send broacast and go home
                 getActivity().sendBroadcast(intent);

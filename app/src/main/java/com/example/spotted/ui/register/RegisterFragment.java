@@ -77,13 +77,7 @@ public class RegisterFragment extends Fragment {
                 Intent intent = new Intent("ACTION_REGISTRATION");
                 if(authResultTask.isComplete()){
                     intent.putExtra("success", authResultTask.isSuccessful());
-                    if(authResultTask.isSuccessful()){ //registration was successful
-
-                        //send broacast and go home
-                        getActivity().sendBroadcast(intent);
-                        Navigation.findNavController(root).navigate(R.id.nav_home);
-                    }
-                    else {
+                    if(!authResultTask.isSuccessful()) {
 
                         showDialog("Registration Failed", authResultTask.getException().getMessage());
                         System.out.println(authResultTask.getException().getMessage());

@@ -196,17 +196,9 @@ public class MainActivity extends AppCompatActivity {
                 String message = intent.getStringExtra("message");
                 switch (action){
                     case "ACTION_LOGIN": case   "ACTION_REGISTRATION": case "ACTION_LOGOUT":
-                        if(success){
-                            updateHeader();
-                            updateLoginMenu();
-                            showSnackBar(message);
-                        }
-                        else{
-                            if(intent.getStringExtra("error") != null){
+                        if(!success){
+                            if(intent.getStringExtra("message") != null){
                                 showDialog(action.split("_")[1], intent.getStringExtra("message") );
-                            }
-                            else{
-                                showDialog(action.split("_")[1], "Sorry, an error occured.");
                             }
 
                         }
