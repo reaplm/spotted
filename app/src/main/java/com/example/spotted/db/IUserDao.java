@@ -12,5 +12,5 @@ public interface IUserDao {
     void createUserWithEmailAndPassword(String email, String password,
                                     OnCompleteListener<AuthResult> onCompleteListener);
     void updateProfile(HashMap<String, String> props, OnCompleteListener<Task> onCompleteListener);
-    void deleteProfile();
+    void deleteProfile(OnCompleteListener<Task> onCompleteListener);
 }

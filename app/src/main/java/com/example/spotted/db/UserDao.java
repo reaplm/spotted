@@ -57,9 +57,12 @@ public class UserDao implements IUserDao{
     }
 
     @Override
-    public void deleteProfile() {
+    public void deleteProfile(OnCompleteListener<Task>  onCompleteListener) {
         if(FirebaseService.isLoggedIn()){
-            FirebaseService.getFirebaseAuth().getCurrentUser().delete();
+            Task task = FirebaseService.getFirebaseAuth().getCurrentUser().delete();
+
+            if(onCompleteListener != null)
+                task.addOnCompleteListener(onCompleteListener);
         }
     }
 }

@@ -27,6 +27,8 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+import com.google.firebase.auth.ActionCodeResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import androidx.annotation.IdRes;
@@ -121,11 +123,35 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //Listen for authstatechanged
+        final FirebaseAuth.AuthStateListener authStateListener = new FirebaseAuth.AuthStateListener(){
+
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                String message = "";
+
+                //update ui
+                if(firebaseAuth.getCurrentUser() != null){
+                    message = "Successfully logged in!";
+                }
+                else{
+                    message = "Successfully logged out!";
+                }
+
+                updateHeader();
+                updateLoginMenu();
+                showSnackBar(message);
+
+            }
+        };
+        FirebaseService.getFirebaseAuth().addAuthStateListener(authStateListener);
+
         //Listen for broadcasts
         IntentFilter filter = new IntentFilter();
         filter.addAction("ACTION_LOGIN");
         filter.addAction("ACTION_REGISTRATION");
         filter.addAction("ACTION_UPDATE_PROFILE");
+        filter.addAction("ACTION_DELETE");
         registerReceiver(broadcastReceiver, filter);
 
         //Update UI
@@ -169,11 +195,11 @@ public class MainActivity extends AppCompatActivity {
                 Boolean success = intent.getBooleanExtra("success",false);
                 String message = intent.getStringExtra("message");
                 switch (action){
-                    case "ACTION_LOGIN": case   "ACTION_REGISTRATION":
+                    case "ACTION_LOGIN": case   "ACTION_REGISTRATION": case "ACTION_LOGOUT":
                         if(success){
                             updateHeader();
                             updateLoginMenu();
-                            showSnackBar("You have successfully logged in!");
+                            showSnackBar(message);
                         }
                         else{
                             if(intent.getStringExtra("error") != null){
@@ -207,8 +233,8 @@ public class MainActivity extends AppCompatActivity {
         FirebaseService.signOut();
 
         //update drawer menu
-        updateLoginMenu();
-        updateHeader();
+        //updateLoginMenu();
+        //updateHeader();
 
     }
     private void updateLoginMenu() {

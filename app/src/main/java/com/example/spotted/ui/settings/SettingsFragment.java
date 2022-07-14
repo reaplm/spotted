@@ -2,11 +2,14 @@ package com.example.spotted.ui.settings;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.navigation.Navigation;
 import androidx.preference.Preference;
 
+import android.os.Environment;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +25,9 @@ import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import com.example.spotted.R;
+import com.google.android.gms.tasks.Task;
+
+import java.io.File;
 
 public class SettingsFragment extends PreferenceFragmentCompat {
 
@@ -32,8 +38,7 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         setPreferencesFromResource(R.xml.fragment_settings, rootKey);
         
 
-        settingsViewModel =
-                new ViewModelProvider(this).get(SettingsViewModel.class);
+
 
         //About
         Preference aboutPref = findPreference("about");
@@ -71,6 +76,36 @@ public class SettingsFragment extends PreferenceFragmentCompat {
                 return true;
             }
         });
+
+    }
+
+    @NonNull
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+
+        settingsViewModel =
+                new ViewModelProvider(this).get(SettingsViewModel.class);
+
+        settingsViewModel.getDeleteResult().observe(getViewLifecycleOwner(), new Observer<Task>() {
+            @Override
+            public void onChanged(Task task) {
+                if(!task.isSuccessful()){
+                    if(task.getException() != null){
+                        openErrorDialog(task.getException().getMessage());
+                    }
+
+                }
+                else{
+                    //If successful delete photo
+                    //File photo = getActivity()
+                         //   .getFileStreamPath(settingsViewModel.getPhotoUrl().toString());
+                    //boolean deleted = photo.delete();
+
+                }
+            }
+        });
+        return super.onCreateView(inflater, container, savedInstanceState);
     }
 
     private void openAccountDialog() {
@@ -90,6 +125,20 @@ public class SettingsFragment extends PreferenceFragmentCompat {
             }
         });
 
+        AlertDialog dialog = builder.create();
+
+        dialog.show();
+    }
+    private void openErrorDialog(String message) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(message)
+                .setTitle(R.string.delete_account);
+
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.dismiss();
+            }
+        });
         AlertDialog dialog = builder.create();
 
         dialog.show();
