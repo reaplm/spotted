@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -17,8 +18,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.Navigation;
 
 import com.example.spotted.R;
+import com.example.spotted.services.FirebaseService;
 import com.example.spotted.services.LocalBroadcastManager;
 import com.example.spotted.ui.edit.EditActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -32,6 +35,7 @@ public class ProfileActivity extends AppCompatActivity {
     private TextView phone;
     private TextView displayName;
     private ImageView profileImage;
+    private Button signOut;
 
 
 
@@ -61,6 +65,7 @@ public class ProfileActivity extends AppCompatActivity {
         email = findViewById(R.id.profile_email_text);
         displayName = findViewById(R.id.profile_name);
         profileImage = findViewById(R.id.profile_pic);
+        signOut = findViewById(R.id.profile_signout);
 
         profileViewModel.getPhone().observe(this, new Observer<String>() {
             @Override
@@ -86,7 +91,13 @@ public class ProfileActivity extends AppCompatActivity {
                 profileImage.setImageURI(uri);
             }
         });
-
+        signOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseService.getFirebaseAuth().signOut();
+                Navigation.findNavController(view).navigate(R.id.nav_home);
+            }
+        });
 
 
 
