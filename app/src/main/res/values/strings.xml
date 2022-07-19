@@ -54,4 +54,10 @@
     <string name="menu_submit">submit</string>
     <string name="menu_edit">Edit</string>
 
+    <!-- Placeholders -->
+    <string name="phone_placeholder">+267 71406569</string>
+    <string name="name_placeholder">Display Name</string>
+    <string name="email_placeholder">testuser@email.com</string>
+    <string name="location_placeholder">Gaborone, Botswana</string>
+
 </resources>

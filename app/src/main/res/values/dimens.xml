@@ -33,7 +33,7 @@
     <dimen name="profile_header">250dp</dimen>
     <dimen name="profile_header_frame">200dp</dimen>
     <dimen name="profile_image_circle">120dp</dimen>
-
+    <dimen name="profile_image_pad">5dp</dimen>
 
     <!-- List Dimensions -->
     <dimen name="list_item_padding">8dp</dimen>
@@ -47,6 +47,7 @@
     <dimen name="page_heading">30sp</dimen>
     <dimen name="form_framelayout">260dp</dimen>
     <dimen name="form_chk_btn_text">20sp</dimen>
+    <dimen name="large_text">40sp</dimen>
 
 
 </resources>

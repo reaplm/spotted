@@ -43,13 +43,13 @@ public class ProfileViewModel extends ViewModel {
             user = FirebaseService.getFirebaseAuth().getCurrentUser();
             email.postValue(user.getEmail());
 
-            if(user.getPhoneNumber() != null)
+            if(!user.getPhoneNumber().isEmpty())
                 phone.postValue(user.getPhoneNumber());
             else
-                phone.postValue("78514962");
+                phone.postValue("+267 78514962");
 
-            if(user.getDisplayName() != null)
-                displayName.postValue(user.getDisplayName().split(" ")[0]);
+            if(!user.getDisplayName().isEmpty())
+                displayName.postValue(user.getDisplayName());
             else
                 displayName.postValue("");
 

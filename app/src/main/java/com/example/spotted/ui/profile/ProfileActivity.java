@@ -62,7 +62,7 @@ public class ProfileActivity extends AppCompatActivity {
         displayName = findViewById(R.id.profile_name);
         profileImage = findViewById(R.id.profile_pic);
 
-        profileViewModel.getDisplayName().observe(this, new Observer<String>() {
+        profileViewModel.getPhone().observe(this, new Observer<String>() {
             @Override
             public void onChanged(String s) {
                 phone.setText(s);
