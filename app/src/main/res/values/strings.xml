@@ -21,9 +21,8 @@
     <string name="register_link"><u>Create Account</u></string>
 
     <!-- Buttons -->
-    <string name="menu_save">save</string>
-    <string name="menu_submit">submit</string>
     <string name="help_label">What are you unhappy with?</string>
+
     <!-- Form Hints -->
     <string name="form_fname_hint">First Name</string>
     <string name="form_lname_hint">Last Name</string>
@@ -49,5 +48,10 @@
     <!-- Dialogs -->
     <string name="ok">Ok</string>
     <string name="cancel">Cancel</string>
+
+    <!-- menus -->
+    <string name="menu_save">save</string>
+    <string name="menu_submit">submit</string>
+    <string name="menu_edit">Edit</string>
 
 </resources>

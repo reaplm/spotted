@@ -6,12 +6,14 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -21,6 +23,8 @@ import com.example.spotted.services.LocalBroadcastManager;
 import com.example.spotted.ui.edit.EditActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+
+import java.util.HashMap;
 
 public class ProfileActivity extends AppCompatActivity {
     private ProfileViewModel profileViewModel;
@@ -43,7 +47,7 @@ public class ProfileActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setLogo(R.drawable.ic_action_camera_filled);
 
-        FloatingActionButton fab = findViewById(R.id.edit_profile_fab);
+        /*FloatingActionButton fab = findViewById(R.id.edit_profile_fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,7 +55,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                 startActivity(intent);
             }
-        });
+        });*/
 
         phone = findViewById(R.id.profile_phone_text);
         email = findViewById(R.id.profile_email_text);
@@ -99,9 +103,16 @@ public class ProfileActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case android.R.id.home:
                 onBackPressed();
-                return true;
+                break;
+
+            case R.id.action_edit:
+                //edit profile
+                Intent intent = new Intent(this, EditActivity.class);
+                startActivity(intent);
+                break;
+
         }
-        return super.onOptionsItemSelected(item);
+        return true;
     }
     /**
      * Update ui after returning from edit profile
@@ -135,4 +146,11 @@ public class ProfileActivity extends AppCompatActivity {
             updateUi(intent);
         }
     };
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.profile, menu);
+
+        return true;
+    }
+
 }
